@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GameDrop – Free games, sales, new releases and what to play</title>
+<meta name="description" content="Free games, sales, new releases, events, trending gaming news and daily picks on what to play.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#14102b;--bg2:#1c1740;--card:#231d4f;--line:#3a3270;--text:#f3efff;--mute:#a9a1d6;--coral:#ff5c7a;--cyan:#4de1d2;--sun:#ffc93c;color-scheme:dark}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font:400 16px/1.6 "DM Sans",system-ui,sans-serif}
+h1,h2,h3{font-family:"Bricolage Grotesque","DM Sans",sans-serif;line-height:1.1;letter-spacing:-.02em}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:3px solid var(--sun);outline-offset:3px}
+.wrap{max-width:1160px;margin:0 auto;padding:0 20px;position:relative}
+section{padding:64px 0}
+.alt-bg{background:var(--bg2)}
+h2{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;margin-bottom:8px}
+.sub{color:var(--mute);margin-bottom:28px;max-width:60ch}
+.tag{font-size:.8rem;font-weight:700;color:var(--cyan)}
+.btn{display:inline-block;background:var(--coral);color:#1a0b14;font-weight:700;padding:12px 22px;border-radius:999px;font-size:1rem}
+.btn.alt{background:transparent;color:var(--text);border:2px solid var(--line);margin-left:8px}
+.btn:hover{filter:brightness(1.1)}
+/* header */
+header{position:sticky;top:0;z-index:20;background:rgba(20,16,43,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px}
+.logo{font:800 1.5rem "Bricolage Grotesque",sans-serif;letter-spacing:-.03em}
+.logo b{color:var(--coral)}
+nav{display:flex;gap:20px;overflow-x:auto;white-space:nowrap}
+nav a{color:var(--mute);font-weight:500;font-size:.95rem}
+nav a:hover{color:var(--text)}
+/* hero */
+.hero{padding:72px 0 56px;background:linear-gradient(90deg,rgba(20,16,43,.92),rgba(20,16,43,.55) 60%,rgba(20,16,43,.3)),url("Images/gta-vi.jpg") center/cover no-repeat,radial-gradient(900px 400px at 80% 0,rgba(255,92,122,.25),transparent 60%),radial-gradient(700px 400px at 0 100%,rgba(77,225,210,.15),transparent 60%),var(--bg)}
+.hero .wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center}
+.hero h1{font-size:clamp(2.6rem,7vw,5.2rem);font-weight:800}
+.hero p{color:var(--mute);margin:16px 0 24px;max-width:48ch;font-size:1.1rem}
+.next{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px;display:flex;gap:20px;align-items:center}
+.next .date{flex:0 0 100px;text-align:center;background:var(--bg);border-radius:16px;padding:14px 6px}
+.next .date b{display:block;font:800 3rem "Bricolage Grotesque",sans-serif;color:var(--sun);line-height:1}
+.next .date span{color:var(--mute);font-size:.9rem}
+.next small{color:var(--coral);font-weight:700}
+.next h3{font-size:1.6rem;margin:2px 0}
+.next p{margin:0;font-size:.95rem}
+/* CSS-only tabs and filters: hidden radio buttons + labels */
+.rad{position:absolute;opacity:0;width:1px;height:1px}
+.bar{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap}
+.bar label{background:var(--bg2);color:var(--mute);border:1px solid var(--line);padding:8px 18px;border-radius:999px;cursor:pointer;font-weight:500;font-size:.95rem}
+.alt-bg .bar label{background:var(--bg)}
+.rad:focus-visible~.bar{outline:3px solid var(--sun);outline-offset:4px;border-radius:12px}
+#p-today:checked~.bar [for=p-today],#p-week:checked~.bar [for=p-week],#p-month:checked~.bar [for=p-month],
+#r-all:checked~.bar [for=r-all],#r-pc:checked~.bar [for=r-pc],#r-ps5:checked~.bar [for=r-ps5],#r-xbox:checked~.bar [for=r-xbox],#r-switch:checked~.bar [for=r-switch],#r-mobile:checked~.bar [for=r-mobile],
+#f-all:checked~.bar [for=f-all],#f-keep:checked~.bar [for=f-keep],#f-lim:checked~.bar [for=f-lim]{background:var(--cyan);color:#06201d;border-color:var(--cyan);font-weight:700}
+/* picks */
+.pk{display:none;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+#p-today:checked~.pk-today,#p-week:checked~.pk-week,#p-month:checked~.pk-month{display:grid}
+.pick{border-radius:20px;padding:24px;min-height:190px;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(160deg,hsl(var(--h) 75% 48%),hsl(calc(var(--h) + 50) 70% 22%))}
+.pick h3{font-size:1.5rem}
+.pick p{font-size:.95rem;opacity:.92;margin-top:6px}
+.pick small{font-weight:700;background:rgba(0,0,0,.3);padding:3px 10px;border-radius:999px;align-self:flex-start;margin-bottom:auto}
+/* free games */
+.free-sec{background:linear-gradient(180deg,#0f2b2a 0%,var(--bg) 100%);border-top:1px solid var(--line)}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:22px;align-items:start}
+#f-keep:checked~.fgrid .lim,#f-lim:checked~.fgrid .keep{display:none}
+.fcard{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.fart{height:110px;background:linear-gradient(135deg,hsl(var(--h) 80% 50%),hsl(calc(var(--h) + 60) 70% 18%));padding:12px}
+.fart{position:relative;overflow:hidden}
+.fart img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.fbadge{position:relative;display:inline-block;font-weight:700;font-size:.85rem;padding:3px 12px;border-radius:999px;color:#07201d;background:var(--cyan)}
+.lim .fbadge{background:var(--sun);color:#2a1d00}
+.fcard .body{padding:18px}
+.fcard h3{font-size:1.3rem}
+.store{color:var(--mute);font-size:.92rem}
+.price{margin:8px 0 6px;font-weight:700;font-size:1.1rem;color:var(--cyan)}
+.price s{color:var(--mute);font-weight:400;margin-right:6px}
+.ends{font-size:.88rem;color:var(--sun);font-weight:700;margin-bottom:10px}
+details{border-top:1px solid var(--line);padding-top:12px}
+summary{cursor:pointer;font-weight:700;list-style:none}
+summary::before{content:"+ ";color:var(--coral)}
+details[open] summary::before{content:"– "}
+details ol{margin:12px 0 16px 20px;color:var(--mute);font-size:.95rem}
+details li{margin-bottom:6px}
+details .btn{padding:9px 18px;font-size:.95rem}
+/* sales */
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:20px}
+.scard{display:flex;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;align-items:center}
+.off{flex:0 0 84px;height:84px;border-radius:14px;display:grid;place-items:center;font:800 1.7rem "Bricolage Grotesque",sans-serif;color:#1a0b14;background:linear-gradient(135deg,var(--coral),var(--sun))}
+.scard h3{font-size:1.15rem}
+.sprice{margin:4px 0;font-weight:700}
+.sprice s{color:var(--mute);font-weight:400;margin-right:8px}
+.sprice b{color:var(--cyan);font-size:1.2rem}
+.sinfo{font-size:.85rem;color:var(--mute)}
+.sinfo em{font-style:normal;color:var(--sun);font-weight:700}
+.go{display:inline-block;margin-top:8px;font-weight:700;font-size:.9rem;color:var(--coral)}
+.go:hover{text-decoration:underline}
+/* releases */
+.rel{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px}
+#r-pc:checked~.rel .g:not(.pc),#r-ps5:checked~.rel .g:not(.ps5),#r-xbox:checked~.rel .g:not(.xbox),#r-switch:checked~.rel .g:not(.switch),#r-mobile:checked~.rel .g:not(.mobile){display:none}
+.g{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.g .art{height:130px;background:linear-gradient(135deg,hsl(var(--h) 80% 55%),hsl(calc(var(--h) + 70) 70% 20%));display:flex;align-items:flex-end;padding:12px}
+.g .art span{background:rgba(0,0,0,.45);padding:2px 10px;border-radius:999px;font-size:.85rem;font-weight:700}
+.g .body{padding:16px}
+.g h3{font-size:1.2rem}
+.g p{color:var(--mute);font-size:.92rem;margin-top:4px}
+.plats{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.plats i{font-style:normal;font-size:.78rem;border:1px solid var(--line);border-radius:6px;padding:1px 8px;color:var(--cyan)}
+/* events */
+.events{list-style:none;padding:0;border-left:3px solid var(--line);margin-left:8px}
+.events li{position:relative;padding:0 0 28px 26px;display:flex;gap:20px;flex-wrap:wrap}
+.events li::before{content:"";position:absolute;left:-10px;top:6px;width:17px;height:17px;border-radius:50%;background:var(--coral);border:3px solid var(--bg)}
+.events .when{min-width:120px;font-weight:700;color:var(--sun)}
+.events h3{font-size:1.25rem}
+.events p{color:var(--mute);font-size:.95rem}
+/* news */
+.news{display:grid;grid-template-columns:1.3fr 1fr;gap:24px}
+.lead{border-radius:20px;padding:28px;min-height:320px;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(180deg,transparent 20%,rgba(20,16,43,.95)),linear-gradient(135deg,var(--coral),#5b2bd6)}
+.lead h3{font-size:2rem}
+.lead p{margin-top:8px;color:#e6defa}
+.list{display:flex;flex-direction:column}
+.list a{padding:16px 0;border-bottom:1px solid var(--line)}
+.list a:hover h3{color:var(--coral)}
+.list h3{font-size:1.1rem;margin-top:2px}
+.list small{color:var(--mute)}
+/* viral */
+.viral{display:flex;gap:16px;overflow-x:auto;padding-bottom:14px;scroll-snap-type:x mandatory}
+.vcard{flex:0 0 250px;scroll-snap-align:start;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
+.heat{font:800 2rem "Bricolage Grotesque",sans-serif;color:var(--coral)}
+.heat small{font:500 .8rem "DM Sans";color:var(--mute);margin-left:6px}
+.vcard h3{font-size:1.15rem;margin:6px 0}
+.vcard p{color:var(--mute);font-size:.92rem}
+/* blog */
+.blog{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px}
+.post{border-top:4px solid hsl(var(--h) 80% 60%);padding-top:14px}
+.post h3{font-size:1.4rem;margin:6px 0}
+.post p,.post small{color:var(--mute)}
+/* newsletter + footer */
+.nl{display:flex;gap:10px;flex-wrap:wrap}
+.nl input{flex:1 1 260px;padding:12px 18px;border-radius:999px;border:1px solid var(--line);background:var(--bg2);color:var(--text);font-size:1rem}
+.nl button{border:0;cursor:pointer}
+footer{padding:32px 0;color:var(--mute);border-top:1px solid var(--line);font-size:.9rem}
+@media(max-width:800px){.hero .wrap,.news{grid-template-columns:1fr}section{padding:48px 0}.hero{padding:48px 0 40px;background:linear-gradient(rgba(20,16,43,.8),rgba(20,16,43,.8)),url("Images/gta-vi.jpg") center/cover no-repeat,var(--bg)}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<!--
+  HOW TO EDIT: every section below has items marked  COPY FROM HERE ... TO HERE.
+  To add an item, copy everything between those two marks, paste it right after,
+  then change only the words. To delete an item, delete everything between the marks.
+  "--h" is a colour number from 0 to 360 (0 red, 120 green, 240 blue).
+-->
+<header><div class="wrap">
+  <a class="logo" href="#top">Game<b>Drop</b></a>
+  <nav aria-label="Main"><a href="#free">Free games</a><a href="#sales">Sales</a><a href="#play">What to play</a><a href="#releases">New releases</a><a href="#events">Events</a><a href="#news">News</a><a href="#viral">Viral</a><a href="#blog">Blog</a></nav>
+</div></header>
+
+<main id="top">
+
+<section class="hero"><div class="wrap"> 
+  <div>
+    <h1>Your daily gaming</h1>
+    <p>Free games, big sales, new releases and the stories everyone is talking about, all in one place.</p>
+    <a class="btn" href="#free">Grab free games</a><a class="btn alt" href="#play">What should I play?</a>
+  </div>
+  <div class="next">
+    <div class="date"><b>19</b><span>NOV 2026</span></div>
+    <div><small>NEW RELEASE</small><h3>Grand Theft Auto VI </h3><p>Action-Adventure· PS5, Xbox Series X/S</p></div>
+  </div>
+</div></section>
+
+<!-- ================= FREE GAMES ================= -->
+<section id="free" class="free-sec"><div class="wrap">
+  <h2>Free games right now</h2>
+  <p class="sub">Paid games that are free to keep for good, or free for a limited time. Tap "How to claim" for the steps. Remove a deal when it ends.</p>
+  <input class="rad" type="radio" name="rf" id="f-all" checked><input class="rad" type="radio" name="rf" id="f-keep"><input class="rad" type="radio" name="rf" id="f-lim">
+  <div class="bar"><label for="f-all">All</label><label for="f-keep">Free to keep</label><label for="f-lim">Limited time</label></div>
+  <div class="fgrid">
+
+    <!-- COPY FROM HERE (class "lim" = limited time, class "keep" = free forever) -->
+    <article class="fcard lim" style="--h:200"><div class="fart"><!-- IMAGE: remove the two arrow marks around the next line once your picture is in the images folder --> <img src="C:\Users\Satyaraj\Documents\My Website GAMEDROP\Images\knightica.webp" alt="Knightica cover art"> <span class="fbadge">Free for a limited time</span></div><div class="body">
+      <h3>Knightica</h3><p class="store">Epic Games Store · PC</p>
+      <p class="price"><s>$19.99</s> Free</p><p class="ends">Ends 27 Nov 2026</p>
+      <details><summary>How to claim</summary><ol><li>Open the store link and sign in (a free account is fine).</li><li>Click "Get" on the game page.</li><li>Click "Place order". The price will show $0.</li><li>Open your Library and click Install.</li></ol><a class="btn" href="https://store.epicgames.com/" target="_blank" rel="noopener">Go to the store</a></details>
+    </div></article>
+    <!-- TO HERE -->
+
+    <article class="fcard lim" style="--h:25"><div class="fart"><img src="C:\Users\Satyaraj\Documents\My Website GAMEDROP\Images\mark-of-the-deep-logo-s8u54.avif" alt="Mark of the deep cover art"><span class="fbadge">Free for a limited time</span></div><div class="body">
+      <h3>Mark Of The Deep</h3><p class="store">Epic Games Store · PC</p>
+      <p class="price"><s>$24.99</s> Free</p><p class="ends">Ends 30 Nov 2026</p>
+      <details><summary>How to claim</summary><ol><li>Install the free Steam app and sign in.</li><li>Open the game page and click "Add to Account".</li><li>Click "Install" in your Library.</li><li>Claim before the deadline to keep it.</li></ol><a class="btn" href="https://store.steampowered.com/" target="_blank" rel="noopener">Go to the store</a></details>
+    </div></article>
+
+    <article class="fcard keep" style="--h:110"><div class="fart"><span class="fbadge">Free to keep</span></div><div class="body">
+      <h3>Pixel Farmers</h3><p class="store">GOG · PC</p>
+      <p class="price"><s>$14.99</s> Free</p>
+      <details><summary>How to claim</summary><ol><li>Create a free GOG account.</li><li>Click the green "Claim" banner at the top of the store.</li><li>The game is added to your library forever.</li><li>Download the installer from your account.</li></ol><a class="btn" href="https://www.gog.com/" target="_blank" rel="noopener">Go to the store</a></details>
+    </div></article>
+
+    <article class="fcard keep" style="--h:340"><div class="fart"><span class="fbadge">Free to keep</span></div><div class="body">
+      <h3>Rally Rush Mobile</h3><p class="store">Google Play · Mobile</p>
+      <p class="price"><s>$4.99</s> Free</p>
+      <details><summary>How to claim</summary><ol><li>Open the store app on your phone.</li><li>Search for the game name.</li><li>Tap "Install". The price shows Free.</li><li>Open it from your home screen.</li></ol><a class="btn" href="https://play.google.com/" target="_blank" rel="noopener">Go to the store</a></details>
+    </div></article>
+
+  </div>
+</div></section>
+
+<!-- ================= SALES ================= -->
+<section id="sales" class="alt-bg"><div class="wrap">
+  <h2>Game sales</h2>
+  <p class="sub">The best discounts right now. Put the biggest savings first and remove a deal when its sale ends.</p>
+  <div class="sgrid">
+
+    <!-- COPY FROM HERE -->
+    <article class="scard"><div class="off">-75%</div><div>
+      <h3>Iron Frontier 2</h3>
+      <p class="sprice"><s>$39.99</s><b>$9.99</b></p>
+      <p class="sinfo">Steam · <em>Ends 30 Nov</em> · Lowest price ever</p>
+      <a class="go" href="https://store.steampowered.com/" target="_blank" rel="noopener">View deal</a>
+    </div></article>
+    <!-- TO HERE -->
+
+    <article class="scard"><div class="off">-60%</div><div>
+      <h3>Ghostline Deluxe</h3>
+      <p class="sprice"><s>$59.99</s><b>$23.99</b></p>
+      <p class="sinfo">PlayStation Store · <em>Ends 2 Dec</em> · Includes all DLC</p>
+      <a class="go" href="https://store.playstation.com/" target="_blank" rel="noopener">View deal</a>
+    </div></article>
+
+    <article class="scard"><div class="off">-50%</div><div>
+      <h3>Ember Tactics</h3>
+      <p class="sprice"><s>$29.99</s><b>$14.99</b></p>
+      <p class="sinfo">Epic Games Store · <em>Ends 24 Nov</em></p>
+      <a class="go" href="https://store.epicgames.com/" target="_blank" rel="noopener">View deal</a>
+    </div></article>
+
+    <article class="scard"><div class="off">-30%</div><div>
+      <h3>Skyward Kart</h3>
+      <p class="sprice"><s>$49.99</s><b>$34.99</b></p>
+      <p class="sinfo">Nintendo eShop · <em>Ends 21 Nov</em></p>
+      <a class="go" href="https://www.nintendo.com/" target="_blank" rel="noopener">View deal</a>
+    </div></article>
+
+  </div>
+</div></section>
+
+<!-- ================= WHAT TO PLAY ================= -->
+<section id="play"><div class="wrap">
+  <h2>What should you play?</h2>
+  <p class="sub">Hand-picked games for right now. Pick a time frame.</p>
+  <input class="rad" type="radio" name="rp" id="p-today" checked><input class="rad" type="radio" name="rp" id="p-week"><input class="rad" type="radio" name="rp" id="p-month">
+  <div class="bar"><label for="p-today">Today</label><label for="p-week">This week</label><label for="p-month">This month</label></div>
+
+  <div class="pk pk-today">
+    <!-- COPY FROM HERE -->
+    <div class="pick" style="--h:330"><small>Action-Adventure</small><h3>Grand Theft Auto VI</h3><p>Most Anticipated GTA is HERE.</p></div>
+    <!-- TO HERE -->
+    <div class="pick" style="--h:160"><small>Action</small><h3>Phantom Blade Zero</h3><p>Quick runs, easy to pick up and put down.</p></div>
+    <div class="pick" style="--h:45"><small>Party</small><h3>Block Party</h3><p>Hop on with friends tonight. Free on all platforms.</p></div>
+  </div>
+  <div class="pk pk-week">
+    <div class="pick" style="--h:250"><small>RPG</small><h3>Starfall Legacy</h3><p>The big space RPG everyone is starting.</p></div>
+    <div class="pick" style="--h:15"><small>Strategy</small><h3>Ember Tactics</h3><p>Turn-based strategy with a brilliant new patch.</p></div>
+    <div class="pick" style="--h:190"><small>Cozy</small><h3>Quiet Harbor</h3><p>A calm fishing sim to wind down the weekend.</p></div>
+  </div>
+  <div class="pk pk-month">
+    <div class="pick" style="--h:30"><small>Open world</small><h3>Iron Frontier 3</h3><p>Open-world epic. Clear your schedule for 40 hours.</p></div>
+    <div class="pick" style="--h:280"><small>Horror</small><h3>Ghostline</h3><p>Co-op horror best played with three friends.</p></div>
+    <div class="pick" style="--h:210"><small>Racing</small><h3>Skyward Kart</h3><p>Season 2 brings new tracks and online cups.</p></div>
+  </div>
+</div></section>
+
+<!-- ================= NEW RELEASES ================= -->
+<section id="releases" class="alt-bg"><div class="wrap">
+  <h2>New releases</h2>
+  <p class="sub">Fresh and upcoming games. Filter by platform.</p>
+  <input class="rad" type="radio" name="rr" id="r-all" checked><input class="rad" type="radio" name="rr" id="r-pc"><input class="rad" type="radio" name="rr" id="r-ps5"><input class="rad" type="radio" name="rr" id="r-xbox"><input class="rad" type="radio" name="rr" id="r-switch"><input class="rad" type="radio" name="rr" id="r-mobile">
+  <div class="bar"><label for="r-all">All</label><label for="r-pc">PC</label><label for="r-ps5">PS5</label><label for="r-xbox">Xbox</label><label for="r-switch">Switch</label><label for="r-mobile">Mobile</label></div>
+  <div class="rel">
+
+    <!-- COPY FROM HERE (in class="g ..." list every platform: pc ps5 xbox switch mobile) -->
+    <article class="g pc ps5 xbox" style="--h:250"><div class="art"><span>19 NOV 2026</span></div><div class="body">
+      <h3>Grand Theft Auto VI</h3><p>Space RPG</p><p>Explore Miami through Vice City</p>
+      <div class="plats"><i>PC</i><i>PS5</i><i>Xbox</i></div></div></article>
+    <!-- TO HERE -->
+
+    <article class="g pc ps5 xbox" style="--h:30"><div class="art"><span>28 Nov 2026</span></div><div class="body">
+      <h3>Iron Frontier 3</h3><p>Open world</p><p>The dusty frontier returns, bigger than ever.</p>
+      <div class="plats"><i>PC</i><i>PS5</i><i>Xbox</i></div></div></article>
+
+    <article class="g pc switch" style="--h:280"><div class="art"><span>20 Nov 2026</span></div><div class="body">
+      <h3>Ghostline</h3><p>Co-op horror</p><p>Three friends, one haunted rail network.</p>
+      <div class="plats"><i>PC</i><i>Switch</i></div></div></article>
+
+    <article class="g pc switch mobile" style="--h:190"><div class="art"><span>18 Nov 2026</span></div><div class="body">
+      <h3>Quiet Harbor</h3><p>Cozy sim</p><p>Fish, decorate and make friends in a seaside town.</p>
+      <div class="plats"><i>PC</i><i>Switch</i><i>Mobile</i></div></div></article>
+
+    <article class="g switch ps5" style="--h:210"><div class="art"><span>3 Dec 2026</span></div><div class="body">
+      <h3>Skyward Kart</h3><p>Racing</p><p>Fast, bright and made for local multiplayer.</p>
+      <div class="plats"><i>Switch</i><i>PS5</i></div></div></article>
+
+    <article class="g mobile pc" style="--h:160"><div class="art"><span>15 Nov 2026</span></div><div class="body">
+      <h3>Pocket Dungeon</h3><p>Roguelike</p><p>Bite-sized dungeon runs with huge replay value.</p>
+      <div class="plats"><i>Mobile</i><i>PC</i></div></div></article>
+
+  </div>
+</div></section>
+
+<!-- ================= EVENTS ================= -->
+<section id="events"><div class="wrap">
+  <h2>Upcoming events</h2>
+  <p class="sub">Showcases, tournaments and conventions, in date order.</p>
+  <ul class="events">
+    <!-- COPY FROM HERE -->
+    <li><div class="when">25 Nov 2026</div><div><h3>Winter Game Showcase</h3><p>Two hours of world premieres and surprise announcements.</p></div></li>
+    <!-- TO HERE -->
+    <li><div class="when">6 Dec 2026</div><div><h3>Esports World Finals</h3><p>The top eight teams battle for the season trophy.</p></div></li>
+    <li><div class="when">18 Dec 2026</div><div><h3>Indie Fest Online</h3><p>Hundreds of free demos from small studios.</p></div></li>
+    <li><div class="when">10 Jan 2027</div><div><h3>Game Awards Night</h3><p>Game of the year and the community vote.</p></div></li>
+  </ul>
+</div></section>
+
+<!-- ================= NEWS ================= -->
+<section id="news" class="alt-bg"><div class="wrap">
+  <h2>Latest trending news</h2>
+  <p class="sub">What the gaming world is talking about today.</p>
+  <div class="news">
+    <a class="lead" href="#"><span class="tag">Industry · 2 hours ago</span><h3>Starfall Legacy hits one million wishlists in a week</h3><p>The space RPG’s reveal trailer is the most watched of the year.</p></a>
+    <div class="list">
+      <!-- COPY FROM HERE (put your article link in href="") -->
+      <a href="#"><span class="tag">Updates</span><h3>Big update for Ember Tactics adds a map editor</h3><small>5 hours ago</small></a>
+      <!-- TO HERE -->
+      <a href="#"><span class="tag">Deals</span><h3>Surprise price drop on console bundles this weekend</h3><small>Yesterday</small></a>
+      <a href="#"><span class="tag">Trailers</span><h3>Skyward Kart season 2 trailer shows ten new tracks</h3><small>Yesterday</small></a>
+    </div>
+  </div>
+</div></section>
+
+<!-- ================= VIRAL ================= -->
+<section id="viral"><div class="wrap">
+  <h2>Going viral</h2>
+  <p class="sub">Clips, memes and rumours blowing up right now. Heat shows how fast they are spreading.</p>
+  <div class="viral">
+    <!-- COPY FROM HERE -->
+    <div class="vcard"><div class="heat">98K<small>heat</small></div><h3>The "impossible" boss beaten with no hits</h3><p>A speedrunner’s flawless clip has everyone talking.</p></div>
+    <!-- TO HERE -->
+    <div class="vcard"><div class="heat">76K<small>heat</small></div><h3>Rumour: a classic series is getting a remake</h3><p>Leaked store listing sparks huge debate. Unconfirmed.</p></div>
+    <div class="vcard"><div class="heat">54K<small>heat</small></div><h3>Player builds a working calculator in-game</h3><p>Over 300 hours of careful block placing.</p></div>
+    <div class="vcard"><div class="heat">41K<small>heat</small></div><h3>Meme of the week: "just one more turn"</h3><p>Strategy fans share their 4 a.m. stories.</p></div>
+  </div>
+</div></section>
+
+<!-- ================= BLOG ================= -->
+<section id="blog" class="alt-bg"><div class="wrap">
+  <h2>From the blog</h2>
+  <p class="sub">Guides, opinions and deep dives.</p>
+  <div class="blog">
+    <!-- COPY FROM HERE -->
+    <article class="post" style="--h:200"><span class="tag">Guide</span><h3>10 hidden settings that make any game look better</h3><p>Quick tweaks to graphics and controls that cost nothing.</p><small>12 Nov 2026</small></article>
+    <!-- TO HERE -->
+    <article class="post" style="--h:340"><span class="tag">Opinion</span><h3>Why short games are having a moment</h3><p>Players want great stories that respect their time.</p><small>9 Nov 2026</small></article>
+    <article class="post" style="--h:50"><span class="tag">Guide</span><h3>Beginner’s guide to your first space RPG</h3><p>Which class to pick, what to skip and how not to get lost.</p><small>6 Nov 2026</small></article>
+  </div>
+</div></section>
+
+<!-- ================= NEWSLETTER ================= -->
+<section><div class="wrap">
+  <h2>Never miss a drop</h2>
+  <p class="sub">Get the weekly "what to play" list in your inbox.</p>
+  <!-- Replace the action link with the one from your free Formspree or Buttondown form (see setup steps) -->
+  <form class="nl" action="https://formspree.io/f/YOUR_FORM_ID" method="post">
+    <input type="email" name="email" required placeholder="Your email" aria-label="Email address"><button class="btn" type="submit">Subscribe</button>
+  </form>
+</div></section>
+
+</main>
+<footer><div class="wrap">© 2026 GameDrop. Made with love for gamers.</div></footer>
+</body>
+</html>
