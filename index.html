@@ -33,7 +33,7 @@ nav{display:flex;gap:20px;overflow-x:auto;white-space:nowrap}
 nav a{color:var(--mute);font-weight:500;font-size:.95rem}
 nav a:hover{color:var(--text)}
 /* hero */
-.hero{padding:72px 0 56px;background:linear-gradient(90deg,rgba(20,16,43,.92),rgba(20,16,43,.55) 60%,rgba(20,16,43,.3)),url("") center/cover no-repeat,radial-gradient(900px 400px at 80% 0,rgba(255,92,122,.25),transparent 60%),radial-gradient(700px 400px at 0 100%,rgba(77,225,210,.15),transparent 60%),var(--bg)}
+.hero{padding:72px 0 56px;background:linear-gradient(90deg,rgba(20,16,43,.92),rgba(20,16,43,.55) 60%,rgba(20,16,43,.3)),url("Images/gta-vi.jpg") center/cover no-repeat,radial-gradient(900px 400px at 80% 0,rgba(255,92,122,.25),transparent 60%),radial-gradient(700px 400px at 0 100%,rgba(77,225,210,.15),transparent 60%),var(--bg)}
 .hero .wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center}
 .hero h1{font-size:clamp(2.6rem,7vw,5.2rem);font-weight:800}
 .hero p{color:var(--mute);margin:16px 0 24px;max-width:48ch;font-size:1.1rem}
@@ -50,32 +50,56 @@ nav a:hover{color:var(--text)}
 .bar label{background:var(--bg2);color:var(--mute);border:1px solid var(--line);padding:8px 18px;border-radius:999px;cursor:pointer;font-weight:500;font-size:.95rem}
 .alt-bg .bar label{background:var(--bg)}
 .rad:focus-visible~.bar{outline:3px solid var(--sun);outline-offset:4px;border-radius:12px}
-#p-today:checked~.bar [for=p-today],#p-week:checked~.bar [for=p-week],#p-month:checked~.bar [for=p-month],
-#r-all:checked~.bar [for=r-all],#r-pc:checked~.bar [for=r-pc],#r-ps5:checked~.bar [for=r-ps5],#r-xbox:checked~.bar [for=r-xbox],#r-switch:checked~.bar [for=r-switch],#r-mobile:checked~.bar [for=r-mobile],
-#f-all:checked~.bar [for=f-all],#f-keep:checked~.bar [for=f-keep],#f-lim:checked~.bar [for=f-lim]{background:var(--cyan);color:#06201d;border-color:var(--cyan);font-weight:700}
+#p-today:checked~.bar [for=p-today],
+#p-week:checked~.bar [for=p-week],
+#p-month:checked~.bar [for=p-month],
+#r-all:checked~.bar [for=r-all],
+#r-pc:checked~.bar [for=r-pc],
+#r-mobile:checked~.bar [for=r-mobile],
+#r-ps5:checked~.bar [for=r-ps5],
+#r-xbox:checked~.bar [for=r-xbox],
+#r-switch:checked~.bar [for=r-switch],
+#f-keep:checked~.bar [for=f-keep],
+#f-lim:checked~.bar [for=f-lim],
+#f-up:checked~.bar [for=f-up],
+#f-all:checked~.bar [for=f-all],
+#rpc-all:checked~.bar [for=rpc-all],
+#rpc-steam:checked~.bar [for=rpc-steam],
+#rpc-epic:checked~.bar [for=rpc-epic],
+#rpc-gog:checked~.bar [for=rpc-gog],
+#rpc-other:checked~.bar [for=rpc-other],
+#rmo-all:checked~.bar [for=rmo-all],
+#rmo-play:checked~.bar [for=rmo-play],
+#rmo-epic:checked~.bar [for=rmo-epic],
+#rmo-apple:checked~.bar [for=rmo-apple],
+#rmo-netflix:checked~.bar [for=rmo-netflix]{background:var(--cyan);color:#06201d;border-color:var(--cyan);font-weight:700}
 /* picks */
 .pk{display:none;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
 #p-today:checked~.pk-today,#p-week:checked~.pk-week,#p-month:checked~.pk-month{display:grid}
 .pick{border-radius:20px;padding:24px;min-height:190px;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(160deg,hsl(var(--h) 75% 48%),hsl(calc(var(--h) + 50) 70% 22%))}
 .pick h3{font-size:1.5rem}
 .pick p{font-size:.95rem;opacity:.92;margin-top:6px}
+.pick{position:relative;overflow:hidden;isolation:isolate;min-height:220px}
+.pick img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.pick::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 35%,rgba(10,8,25,.85));z-index:-1}
 .pick small{font-weight:700;background:rgba(0,0,0,.3);padding:3px 10px;border-radius:999px;align-self:flex-start;margin-bottom:auto}
 /* free games */
 .free-sec{background:linear-gradient(180deg,#0f2b2a 0%,var(--bg) 100%);border-top:1px solid var(--line)}
 .fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:22px;align-items:start}
-#f-keep:checked~.fgrid .lim,#f-lim:checked~.fgrid .keep{display:none}
+#f-keep:checked~.fgrid .fcard:not(.keep),#f-lim:checked~.fgrid .fcard:not(.lim),#f-up:checked~.fgrid .fcard:not(.up){display:none}
 .fcard{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden}
 .fart{height:110px;background:linear-gradient(135deg,hsl(var(--h) 80% 50%),hsl(calc(var(--h) + 60) 70% 18%));padding:12px}
 .fart{position:relative;overflow:hidden}
 .fart img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .fbadge{position:relative;display:inline-block;font-weight:700;font-size:.85rem;padding:3px 12px;border-radius:999px;color:#07201d;background:var(--cyan)}
 .lim .fbadge{background:var(--sun);color:#2a1d00}
+.up .fbadge{background:var(--coral);color:#1a0b14}
 .fcard .body{padding:18px}
 .fcard h3{font-size:1.3rem}
 .store{color:var(--mute);font-size:.92rem}
 .price{margin:8px 0 6px;font-weight:700;font-size:1.1rem;color:var(--cyan)}
 .price s{color:var(--mute);font-weight:400;margin-right:6px}
-.ends{font-size:.88rem;color:var(--sun);font-weight:700;margin-bottom:10px}
+.ends,.free{font-size:.88rem;color:var(--sun);font-weight:700;margin-bottom:10px}
 details{border-top:1px solid var(--line);padding-top:12px}
 summary{cursor:pointer;font-weight:700;list-style:none}
 summary::before{content:"+ ";color:var(--coral)}
@@ -97,10 +121,17 @@ details .btn{padding:9px 18px;font-size:.95rem}
 .go:hover{text-decoration:underline}
 /* releases */
 .rel{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px}
-#r-pc:checked~.rel .g:not(.pc),#r-ps5:checked~.rel .g:not(.ps5),#r-xbox:checked~.rel .g:not(.xbox),#r-switch:checked~.rel .g:not(.switch),#r-mobile:checked~.rel .g:not(.mobile){display:none}
+#r-pc:checked~.rel .g:not(.pc),#r-mobile:checked~.rel .g:not(.mobile),#r-ps5:checked~.rel .g:not(.ps5),#r-xbox:checked~.rel .g:not(.xbox),#r-switch:checked~.rel .g:not(.switch){display:none}
+.sub-bar{display:none;margin-top:-8px}
+.sub-bar label{font-size:.85rem;padding:6px 14px}
+#r-pc:checked~.sub-pc,#r-mobile:checked~.sub-mo{display:flex}
+#r-pc:checked~#rpc-steam:checked~.rel .g:not(.pc-steam),#r-pc:checked~#rpc-epic:checked~.rel .g:not(.pc-epic),#r-pc:checked~#rpc-gog:checked~.rel .g:not(.pc-gog),#r-pc:checked~#rpc-other:checked~.rel .g:not(.pc-other),
+#r-mobile:checked~#rmo-play:checked~.rel .g:not(.mo-play),#r-mobile:checked~#rmo-epic:checked~.rel .g:not(.mo-epic),#r-mobile:checked~#rmo-apple:checked~.rel .g:not(.mo-apple),#r-mobile:checked~#rmo-netflix:checked~.rel .g:not(.mo-netflix){display:none}
 .g{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
 .g .art{height:130px;background:linear-gradient(135deg,hsl(var(--h) 80% 55%),hsl(calc(var(--h) + 70) 70% 20%));display:flex;align-items:flex-end;padding:12px}
-.g .art span{background:rgba(0,0,0,.45);padding:2px 10px;border-radius:999px;font-size:.85rem;font-weight:700}
+.g .art{position:relative;overflow:hidden}
+.g .art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.g .art span{position:relative;background:rgba(0,0,0,.45);padding:2px 10px;border-radius:999px;font-size:.85rem;font-weight:700}
 .g .body{padding:16px}
 .g h3{font-size:1.2rem}
 .g p{color:var(--mute);font-size:.92rem;margin-top:4px}
@@ -142,6 +173,25 @@ details .btn{padding:9px 18px;font-size:.95rem}
 footer{padding:32px 0;color:var(--mute);border-top:1px solid var(--line);font-size:.9rem}
 @media(max-width:800px){.hero .wrap,.news{grid-template-columns:1fr}section{padding:48px 0}.hero{padding:48px 0 40px;background:linear-gradient(rgba(20,16,43,.8),rgba(20,16,43,.8)),url("Images/gta-vi.jpg") center/cover no-repeat,var(--bg)}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+/* ===== HIDE A GAME EVERYWHERE =====
+   Every game card carries a tag like x-mark-of-the-deep. To hide that game in ALL sections at once,
+   delete the slash-star at the start and the star-slash at the end of its line below. To show it again, put them back. */
+/* .x-block-party{display:none!important} */
+/* .x-ember-tactics{display:none!important} */
+/* .x-ghostline{display:none!important} */
+/* .x-ghostline-deluxe{display:none!important} */
+/* .x-grand-theft-auto-vi{display:none!important} */
+/* .x-iron-frontier-2{display:none!important} */
+/* .x-iron-frontier-3{display:none!important} */
+/* .x-knightica{display:none!important} */
+/* .x-lonesome-village{display:none!important} */
+/* .x-mark-of-the-deep{display:none!important} */
+/* .x-phantom-blade-zero{display:none!important} */
+/* .x-pocket-dungeon{display:none!important} */
+/* .x-quiet-harbor{display:none!important} */
+/* .x-sample-upcoming-game{display:none!important} */
+/* .x-skyward-kart{display:none!important} */
+/* .x-starfall-legacy{display:none!important} */
 </style>
 </head>
 <body>
@@ -150,9 +200,11 @@ footer{padding:32px 0;color:var(--mute);border-top:1px solid var(--line);font-si
   To add an item, copy everything between those two marks, paste it right after,
   then change only the words. To delete an item, delete everything between the marks.
   "--h" is a colour number from 0 to 360 (0 red, 120 green, 240 blue).
+  TO HIDE A GAME EVERYWHERE: press Ctrl+F, search  HIDE A GAME EVERYWHERE  and follow the note there.
+  TO PERMANENTLY REMOVE A GAME: press Ctrl+F, type its name, and delete each whole card that is found.
 -->
 <header><div class="wrap">
-  <a class="logo" href="#top">Game<b>Drop</b></a>
+  <a class="logo" href="#top">Game<b>Drop</b> <h1 style="font-size: 15px;font-family: Times New Roman;">Beta</h1></a>
   <nav aria-label="Main"><a href="#free">Free games</a><a href="#sales">Sales</a><a href="#play">What to play</a><a href="#releases">New releases</a><a href="#events">Events</a><a href="#news">News</a><a href="#viral">Viral</a><a href="#blog">Blog</a></nav>
 </div></header>
 
@@ -164,7 +216,7 @@ footer{padding:32px 0;color:var(--mute);border-top:1px solid var(--line);font-si
     <p>Free games, big sales, new releases and the stories everyone is talking about, all in one place.</p>
     <a class="btn" href="#free">Grab free games</a><a class="btn alt" href="#play">What should I play?</a>
   </div>
-  <div class="next">
+  <div class="next x-grand-theft-auto-vi">
     <div class="date"><b>19</b><span>NOV 2026</span></div>
     <div><small>NEW RELEASE</small><h3>Grand Theft Auto VI </h3><p>Action-Adventure· PS5, Xbox Series X/S</p></div>
   </div>
@@ -174,34 +226,27 @@ footer{padding:32px 0;color:var(--mute);border-top:1px solid var(--line);font-si
 <section id="free" class="free-sec"><div class="wrap">
   <h2>Free games right now</h2>
   <p class="sub">Paid games that are free to keep for good, or free for a limited time. Tap "How to claim" for the steps. Remove a deal when it ends.</p>
-  <input class="rad" type="radio" name="rf" id="f-all" checked><input class="rad" type="radio" name="rf" id="f-keep"><input class="rad" type="radio" name="rf" id="f-lim">
-  <div class="bar"> <label for="f-keep">Free to keep</label> <label for="f-lim">Limited time</label><label for="f-all">All</label><label for="upcoming">Upcoming</label></div>
-  <div class="fgrid">
+  <input class="rad" type="radio" name="rf" id="f-all" checked><input class="rad" type="radio" name="rf" id="f-keep"><input class="rad" type="radio" name="rf" id="f-lim"><input class="rad" type="radio" name="rf" id="f-up">
+  <div class="bar"><label for="f-all">All</label><label for="f-keep">Free to keep</label><label for="f-lim">Limited time</label><label for="f-up">Upcoming</label></div>
+  <div class="fgrid">    
 
-    <!-- COPY FROM HERE (class "lim" = limited time, class "keep" = free forever) -->
-    <article class="fcard lim" style="--h:200"><div class="fart"><!-- IMAGE: remove the two arrow marks around the next line once your picture is in the images folder --> <img src="C:\Users\Satyaraj\Documents\My Website GAMEDROP\Images\knightica.webp" alt="Knightica cover art"> <span class="fbadge">Free for a limited time</span></div><div class="body">
-      <h3>Knightica</h3><p class="store">Epic Games Store · PC</p>
-      <p class="price"><s>$19.99</s> Free</p><p class="ends">Ends 27 Nov 2026</p>
-      <details><summary>How to claim</summary><ol><li>Open the store link and sign in (a free account is fine).</li><li>Click "Get" on the game page.</li><li>Click "Place order". The price will show $0.</li><li>Open your Library and click Install.</li></ol><a class="btn" href="https://store.epicgames.com/" target="_blank" rel="noopener">Go to the store</a></details>
-    </div></article>
-    <!-- TO HERE -->
-
-    <article class="fcard lim" style="--h:25"><div class="fart"><img src="C:\Users\Satyaraj\Documents\My Website GAMEDROP\Images\mark-of-the-deep-logo-s8u54.avif" alt="Mark of the deep cover art"><span class="fbadge">Free for a limited time</span></div><div class="body">
-      <h3>Mark Of The Deep</h3><p class="store">Epic Games Store · PC</p>
-      <p class="price"><s>₹880</s> Free</p><p class="ends">Ends 30 Nov 2026</p>
-      <details><summary>How to claim</summary><ol><li>Install the free Steam app and sign in.</li><li>Open the game page and click "Add to Account".</li><li>Click "Install" in your Library.</li><li>Claim before the deadline to keep it.</li></ol><a class="btn" href="https://store.steampowered.com/" target="_blank" rel="noopener">Go to the store</a></details>
-    </div></article>
-
-    <article class="fcard keep" style="--h:110"><div class="fart"><img src="C:\Users\Satyaraj\Documents\My Website GAMEDROP\Images\mark-of-the-deep-logo-s8u54.avif" alt="Mark of the deep cover art"><span class="fbadge">Free to keep</span></div><div class="body">
+    <article class="fcard keep x-mark-of-the-deep" style="--h:110"><div class="fart"><img src="Images/mark-of-the-deep-logo-s8u54.avif" alt="Mark of the deep cover art"><span class="fbadge">Free to keep</span></div><div class="body">
       <h3>Mark Of The Deep</h3><p class="store">Epic Games Store · PC</p>
       <p class="price"><s>₹880</s> Free</p> <p class="free"> Claim Before 26/Nov/2026 . 9.30 PM IST </p>
       <details><summary>How to claim</summary><ol><li>Create a free Epic Games account if already not Created.</li><li>In Store tab Go Down Until You Found the Free Games Section</li><li>Click On The Game , Click On "GET" Add To You Library </li><li>The game is added to your library forever.</li><li>Download the installer from your account.</li></ol><a class="btn" href="https://store.epicgames.com/" target="_blank" rel="noopener">Go to the store</a></details>
     </div></article>
 
-    <article class="fcard keep" style="--h:340"><div class="fart"><img src="C:\Users\Satyaraj\Documents\My Website GAMEDROP\Images\lonesomevillage.jpg" alt="Mark of the deep cover art"><span class="fbadge">Free to keep</span></div><div class="body">
+    <article class="fcard keep x-lonesome-village" style="--h:340"><div class="fart"><img src="Images/lonesomevillage.jpg" alt="Lonesome Village cover art"><span class="fbadge">Free to keep</span></div><div class="body">
       <h3>LONESOME VILLAGE</h3><p class="store">Epic Games Store · Mobile</p>
       <p class="price"><s>₹179</s> Free</p><p class="free"> Claim Before 26/Nov/2026 . 9.30 PM IST </p>
       <details><summary>How to claim</summary><ol><li>Open the store app on your phone.</li><li>Search for the game name.</li><li>Tap "Install". The price shows Free.</li><li>Open it from your home screen.</li></ol><a class="btn" href="https://store.epicgames.com/mobile/" target="_blank" rel="noopener">Go to the store</a></details>
+    </div></article>
+
+    <!-- UPCOMING FREE GAME (class "up"). Copy this block for every game that will be free soon. This one is a SAMPLE, replace or delete it. -->
+    <article class="fcard up x-sample-upcoming-game" style="--h:270"><div class="fart"><img src="Images/breadfred.jpg" alt="Your game cover art"> --><span class="fbadge">Coming Soon</span></div><div class="body">
+      <h3>Bread & Fred</h3><p class="store">Epic Games Store · PC</p>
+      <p class="price"><s>₹539</s> Free</p><p class="free">Free from 26 Nov 2026 · 9:30 PM IST</p>
+      <details><summary>How to claim (when it goes live)</summary><ol><li>Create a free Epic Games account if you do not have one.</li><li>Come back on the start date and open the store's Free Games section.</li><li>Click the game, then click "Get" and place the $0 order.</li><li>It stays in your library.</li></ol><a class="btn" href="https://store.epicgames.com/" target="_blank" rel="noopener">Go to the store</a></details>
     </div></article>
 
   </div>
@@ -212,35 +257,50 @@ footer{padding:32px 0;color:var(--mute);border-top:1px solid var(--line);font-si
   <h2>Game sales</h2>
   <p class="sub">The best discounts right now. Put the biggest savings first and remove a deal when its sale ends.</p>
   <div class="sgrid">
+<article class="scard x-iron-frontier-2"><div class="off">-95%</div><div>
+      <h3>Need For Speed Heat</h3>
+      <p class="sprice"><s>₹3,499</s><b>₹174</b></p>
+      <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p>
+      <a class="go" href="https://store.steampowered.com/app/1426210/It_Takes_Two/" target="_blank" rel="noopener">View deal</a>
+    </div></article>
 
     <!-- COPY FROM HERE -->
-    <article class="scard"><div class="off">-75%</div><div>
-      <h3>Iron Frontier 2</h3>
-      <p class="sprice"><s>$39.99</s><b>$9.99</b></p>
-      <p class="sinfo">Steam · <em>Ends 30 Nov</em> · Lowest price ever</p>
-      <a class="go" href="https://store.steampowered.com/" target="_blank" rel="noopener">View deal</a>
+    <article class="scard x-iron-frontier-2"><div class="off">-80%</div><div>
+      <h3>It Takes Two</h3>
+      <p class="sprice"><s>₹2,199</s><b>₹439</b></p>
+      <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p>
+      <a class="go" href="https://store.steampowered.com/app/1426210/It_Takes_Two/" target="_blank" rel="noopener">View deal</a>
     </div></article>
-    <!-- TO HERE -->
-
-    <article class="scard"><div class="off">-60%</div><div>
-      <h3>Ghostline Deluxe</h3>
-      <p class="sprice"><s>$59.99</s><b>$23.99</b></p>
-      <p class="sinfo">PlayStation Store · <em>Ends 2 Dec</em> · Includes all DLC</p>
-      <a class="go" href="https://store.playstation.com/" target="_blank" rel="noopener">View deal</a>
+    <!-- TO HERE --> 
+<article class="scard x-iron-frontier-2"><div class="off">-60%</div><div>
+      <h3>God Of War 2018</h3>
+      <p class="sprice"><s>₹3,299</s><b>₹1319</b></p>
+      <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p>
+      <a class="go" href="https://store.steampowered.com/app/1426210/It_Takes_Two/" target="_blank" rel="noopener">View deal</a>
     </div></article>
-
-    <article class="scard"><div class="off">-50%</div><div>
-      <h3>Ember Tactics</h3>
-      <p class="sprice"><s>$29.99</s><b>$14.99</b></p>
-      <p class="sinfo">Epic Games Store · <em>Ends 24 Nov</em></p>
-      <a class="go" href="https://store.epicgames.com/" target="_blank" rel="noopener">View deal</a>
+<article class="scard x-iron-frontier-2"><div class="off">-33%</div><div>
+      <h3>God Of War Ragnarok</h3>
+      <p class="sprice"><s>₹3,999</s><b>₹2,679</b></p>
+      <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p>
+      <a class="go" href="https://store.steampowered.com/app/1426210/It_Takes_Two/" target="_blank" rel="noopener">View deal</a>
     </div></article>
-
-    <article class="scard"><div class="off">-30%</div><div>
-      <h3>Skyward Kart</h3>
-      <p class="sprice"><s>$49.99</s><b>$34.99</b></p>
-      <p class="sinfo">Nintendo eShop · <em>Ends 21 Nov</em></p>
-      <a class="go" href="https://www.nintendo.com/" target="_blank" rel="noopener">View deal</a>
+<article class="scard x-iron-frontier-2"><div class="off">-50%</div><div>
+      <h3>The Last Of Us Part I</h3>
+      <p class="sprice"><s>₹3,999</s><b>₹1,999</b></p>
+      <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p>
+      <a class="go" href="https://store.steampowered.com/app/1426210/It_Takes_Two/" target="_blank" rel="noopener">View deal</a>
+    </div></article>
+<article class="scard x-iron-frontier-2"><div class="off">-33%</div><div>
+      <h3>The Last Of Us Part II Remastered</h3>
+      <p class="sprice"><s>₹3,299</s><b>₹2,210</b></p>
+      <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p>
+      <a class="go" href="https://store.steampowered.com/app/1426210/It_Takes_Two/" target="_blank" rel="noopener">View deal</a>
+    </div></article>
+<article class="scard x-iron-frontier-2"><div class="off">-33%</div><div>
+      <h3>Uncharted: Legacy of Thieves Collection</h3>
+      <p class="sprice"><s>₹3,299</s><b>₹1,088</b></p>
+      <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p>
+      <a class="go" href="https://store.steampowered.com/app/1426210/It_Takes_Two/" target="_blank" rel="noopener">View deal</a>
     </div></article>
 
   </div>
@@ -254,57 +314,64 @@ footer{padding:32px 0;color:var(--mute);border-top:1px solid var(--line);font-si
   <div class="bar"><label for="p-today">Today</label><label for="p-week">This week</label><label for="p-month">This month</label></div>
 
   <div class="pk pk-today">
-    <!-- COPY FROM HERE -->
-    <div class="pick" style="--h:330"><small>Action-Adventure</small><h3>Grand Theft Auto VI</h3><p>Most Anticipated GTA is HERE.</p></div>
+    <!-- COPY FROM HERE. To add a picture, paste <img src="Images/file.jpg" alt="Game name"> right after <div class="pick x-grand-theft-auto-vi" ...>  -->
+    <div class="pick" style="--h:330"><img src="Images/gtavi.jpg" alt="Grand Theft Auto VI cover art"><small>Action-Adventure</small><h3>Grand Theft Auto VI</h3><p>Most Anticipated GTA is HERE.</p></div>
     <!-- TO HERE -->
-    <div class="pick" style="--h:160"><small>Action</small><h3>Phantom Blade Zero</h3><p>Quick runs, easy to pick up and put down.</p></div>
-    <div class="pick" style="--h:45"><small>Party</small><h3>Block Party</h3><p>Hop on with friends tonight. Free on all platforms.</p></div>
+    <div class="pick x-phantom-blade-zero" style="--h:160"><img src="Images/OIP2826766726.jpg" alt="Grand Theft Auto VI cover art"><small>Action</small><h3>Phantom Blade Zero</h3><p>Quick runs, easy to pick up and put down.</p></div>
+    
   </div>
   <div class="pk pk-week">
-    <div class="pick" style="--h:250"><small>RPG</small><h3>Starfall Legacy</h3><p>The big space RPG everyone is starting.</p></div>
-    <div class="pick" style="--h:15"><small>Strategy</small><h3>Ember Tactics</h3><p>Turn-based strategy with a brilliant new patch.</p></div>
-    <div class="pick" style="--h:190"><small>Cozy</small><h3>Quiet Harbor</h3><p>A calm fishing sim to wind down the weekend.</p></div>
+    <div class="pick x-starfall-legacy" style="--h:250"><small>RPG</small><h3>Starfall Legacy</h3><p>The big space RPG everyone is starting.</p></div>
+    <div class="pick x-ember-tactics" style="--h:15"><small>Strategy</small><h3>Ember Tactics</h3><p>Turn-based strategy with a brilliant new patch.</p></div>
+    <div class="pick x-quiet-harbor" style="--h:190"><small>Cozy</small><h3>Quiet Harbor</h3><p>A calm fishing sim to wind down the weekend.</p></div>
   </div>
   <div class="pk pk-month">
-    <div class="pick" style="--h:30"><small>Open world</small><h3>Iron Frontier 3</h3><p>Open-world epic. Clear your schedule for 40 hours.</p></div>
-    <div class="pick" style="--h:280"><small>Horror</small><h3>Ghostline</h3><p>Co-op horror best played with three friends.</p></div>
-    <div class="pick" style="--h:210"><small>Racing</small><h3>Skyward Kart</h3><p>Season 2 brings new tracks and online cups.</p></div>
+    <div class="pick x-iron-frontier-3" style="--h:30"><small>Open world</small><h3>Iron Frontier 3</h3><p>Open-world epic. Clear your schedule for 40 hours.</p></div>
+    <div class="pick x-ghostline" style="--h:280"><small>Horror</small><h3>Ghostline</h3><p>Co-op horror best played with three friends.</p></div>
+    <div class="pick x-skyward-kart" style="--h:210"><small>Racing</small><h3>Skyward Kart</h3><p>Season 2 brings new tracks and online cups.</p></div>
   </div>
 </div></section>
 
 <!-- ================= NEW RELEASES ================= -->
 <section id="releases" class="alt-bg"><div class="wrap">
   <h2>New releases</h2>
-  <p class="sub">Fresh and upcoming games. Filter by platform.</p>
-  <input class="rad" type="radio" name="rr" id="r-all" checked><input class="rad" type="radio" name="rr" id="r-pc"><input class="rad" type="radio" name="rr" id="r-ps5"><input class="rad" type="radio" name="rr" id="r-xbox"><input class="rad" type="radio" name="rr" id="r-switch"><input class="rad" type="radio" name="rr" id="r-mobile">
-  <div class="bar"><label for="r-all">All</label><label for="r-pc">PC</label><label for="r-ps5">PS5</label><label for="r-xbox">Xbox</label><label for="r-switch">Switch</label><label for="r-mobile">Mobile</label></div>
+  <p class="sub">Fresh and upcoming games. Pick a platform, then a store.</p>
+  <input class="rad" type="radio" name="rr" id="r-all" checked><input class="rad" type="radio" name="rr" id="r-pc"><input class="rad" type="radio" name="rr" id="r-mobile"><input class="rad" type="radio" name="rr" id="r-ps5"><input class="rad" type="radio" name="rr" id="r-xbox"><input class="rad" type="radio" name="rr" id="r-switch">
+  <input class="rad" type="radio" name="rpc" id="rpc-all" checked><input class="rad" type="radio" name="rpc" id="rpc-steam"><input class="rad" type="radio" name="rpc" id="rpc-epic"><input class="rad" type="radio" name="rpc" id="rpc-gog"><input class="rad" type="radio" name="rpc" id="rpc-other">
+  <input class="rad" type="radio" name="rmo" id="rmo-all" checked><input class="rad" type="radio" name="rmo" id="rmo-play"><input class="rad" type="radio" name="rmo" id="rmo-epic"><input class="rad" type="radio" name="rmo" id="rmo-apple"><input class="rad" type="radio" name="rmo" id="rmo-netflix">
+  <div class="bar"><label for="r-all">All</label><label for="r-pc">PC</label><label for="r-mobile">Mobile</label><label for="r-ps5">PS5</label><label for="r-xbox">Xbox</label><label for="r-switch">Nintendo</label></div>
+  <div class="bar sub-bar sub-pc"><label for="rpc-all">All PC</label><label for="rpc-steam">Steam</label><label for="rpc-epic">Epic Games</label><label for="rpc-gog">GOG</label><label for="rpc-other">Other PC</label></div>
+  <div class="bar sub-bar sub-mo"><label for="rmo-all">All Mobile</label><label for="rmo-play">Google Play</label><label for="rmo-epic">Epic Games Store</label><label for="rmo-apple">App Store</label><label for="rmo-netflix">Netflix</label></div>
   <div class="rel">
 
-    <!-- COPY FROM HERE (in class="g ..." list every platform: pc ps5 xbox switch mobile) -->
-    <article class="g pc ps5 xbox" style="--h:250"><div class="art"><span>19 NOV 2026</span></div><div class="body">
-      <h3>Grand Theft Auto VI</h3><p>Space RPG</p><p>Explore Miami through Vice City</p>
-      <div class="plats"><i>PC</i><i>PS5</i><i>Xbox</i></div></div></article>
+    <!-- COPY FROM HERE
+         1) In class="g ... x-grand-theft-auto-vi" list the platforms: pc mobile ps5 xbox switch (switch = Nintendo)
+         2) Add a store class for each store: pc-steam pc-epic pc-gog pc-other  |  mo-play mo-epic mo-apple mo-netflix
+         3) To add a picture, remove the arrow marks around the <img> line and match the file name in the Images folder -->
+    <article class="g ps5 xbox" style="--h:250"><div class="art"><img src="Images/gtavi.jpg" alt="Grand Theft Auto VI cover art"><span>19 NOV 2026</span></div><div class="body">
+      <h3>Grand Theft Auto VI</h3><p>Action-Adventure</p><p>Explore Miami through Vice City</p>
+      <div class="plats"><i>PS5</i><i>Xbox</i></div></div></article>
     <!-- TO HERE -->
 
-    <article class="g pc ps5 xbox" style="--h:30"><div class="art"><span>28 Nov 2026</span></div><div class="body">
+    <article class="g pc pc-steam pc-epic ps5 xbox x-iron-frontier-3" style="--h:30"><div class="art"><!-- <img src="Images/iron-frontier-3.jpg" alt="Iron Frontier 3 cover art"> --><span>28 Nov 2026</span></div><div class="body">
       <h3>Iron Frontier 3</h3><p>Open world</p><p>The dusty frontier returns, bigger than ever.</p>
-      <div class="plats"><i>PC</i><i>PS5</i><i>Xbox</i></div></div></article>
+      <div class="plats"><i>PC · Steam</i><i>PC · Epic</i><i>PS5</i><i>Xbox</i></div></div></article>
 
-    <article class="g pc switch" style="--h:280"><div class="art"><span>20 Nov 2026</span></div><div class="body">
+    <article class="g pc pc-steam switch x-ghostline" style="--h:280"><div class="art"><!-- <img src="Images/ghostline.jpg" alt="Ghostline cover art"> --><span>20 Nov 2026</span></div><div class="body">
       <h3>Ghostline</h3><p>Co-op horror</p><p>Three friends, one haunted rail network.</p>
-      <div class="plats"><i>PC</i><i>Switch</i></div></div></article>
+      <div class="plats"><i>PC · Steam</i><i>Nintendo</i></div></div></article>
 
-    <article class="g pc switch mobile" style="--h:190"><div class="art"><span>18 Nov 2026</span></div><div class="body">
+    <article class="g pc pc-gog switch mobile mo-play mo-apple mo-netflix x-quiet-harbor" style="--h:190"><div class="art"><!-- <img src="Images/quiet-harbor.jpg" alt="Quiet Harbor cover art"> --><span>18 Nov 2026</span></div><div class="body">
       <h3>Quiet Harbor</h3><p>Cozy sim</p><p>Fish, decorate and make friends in a seaside town.</p>
-      <div class="plats"><i>PC</i><i>Switch</i><i>Mobile</i></div></div></article>
+      <div class="plats"><i>PC · GOG</i><i>Nintendo</i><i>Mobile · Google Play</i><i>Mobile · App Store</i><i>Mobile · Netflix</i></div></div></article>
 
-    <article class="g switch ps5" style="--h:210"><div class="art"><span>3 Dec 2026</span></div><div class="body">
+    <article class="g switch ps5 x-skyward-kart" style="--h:210"><div class="art"><!-- <img src="Images/skyward-kart.jpg" alt="Skyward Kart cover art"> --><span>3 Dec 2026</span></div><div class="body">
       <h3>Skyward Kart</h3><p>Racing</p><p>Fast, bright and made for local multiplayer.</p>
-      <div class="plats"><i>Switch</i><i>PS5</i></div></div></article>
+      <div class="plats"><i>Nintendo</i><i>PS5</i></div></div></article>
 
-    <article class="g mobile pc" style="--h:160"><div class="art"><span>15 Nov 2026</span></div><div class="body">
+    <article class="g mobile mo-play mo-epic pc pc-other x-pocket-dungeon" style="--h:160"><div class="art"><!-- <img src="Images/pocket-dungeon.jpg" alt="Pocket Dungeon cover art"> --><span>15 Nov 2026</span></div><div class="body">
       <h3>Pocket Dungeon</h3><p>Roguelike</p><p>Bite-sized dungeon runs with huge replay value.</p>
-      <div class="plats"><i>Mobile</i><i>PC</i></div></div></article>
+      <div class="plats"><i>Mobile · Google Play</i><i>Mobile · Epic Store</i><i>PC · Itch.io</i></div></div></article>
 
   </div>
 </div></section>
@@ -315,15 +382,14 @@ footer{padding:32px 0;color:var(--mute);border-top:1px solid var(--line);font-si
   <p class="sub">Showcases, tournaments and conventions, in date order.</p>
   <ul class="events">
     <!-- COPY FROM HERE -->
-    <li><div class="when">25 Nov 2026</div><div><h3>Winter Game Showcase</h3><p>Two hours of world premieres and surprise announcements.</p></div></li>
+    <li><div class="when">10 DEC 2026</div><div><h3>Game Of The Year Awards</h3><p>Two hours of world premieres and surprise announcements.</p></div></li>
     <!-- TO HERE -->
-    <li><div class="when">6 Dec 2026</div><div><h3>Esports World Finals</h3><p>The top eight teams battle for the season trophy.</p></div></li>
-    <li><div class="when">18 Dec 2026</div><div><h3>Indie Fest Online</h3><p>Hundreds of free demos from small studios.</p></div></li>
-    <li><div class="when">10 Jan 2027</div><div><h3>Game Awards Night</h3><p>Game of the year and the community vote.</p></div></li>
+    
   </ul>
 </div></section>
 
 <!-- ================= NEWS ================= -->
+<!-- 
 <section id="news" class="alt-bg"><div class="wrap">
   <h2>Latest trending news</h2>
   <p class="sub">What the gaming world is talking about today.</p>
@@ -331,15 +397,17 @@ footer{padding:32px 0;color:var(--mute);border-top:1px solid var(--line);font-si
     <a class="lead" href="#"><span class="tag">Industry · 2 hours ago</span><h3>Starfall Legacy hits one million wishlists in a week</h3><p>The space RPG’s reveal trailer is the most watched of the year.</p></a>
     <div class="list">
       <!-- COPY FROM HERE (put your article link in href="") -->
-      <a href="#"><span class="tag">Updates</span><h3>Big update for Ember Tactics adds a map editor</h3><small>5 hours ago</small></a>
+    <!--  <a href="#"><span class="tag">Updates</span><h3>Big update for Ember Tactics adds a map editor</h3><small>5 hours ago</small></a> -->
       <!-- TO HERE -->
       <a href="#"><span class="tag">Deals</span><h3>Surprise price drop on console bundles this weekend</h3><small>Yesterday</small></a>
       <a href="#"><span class="tag">Trailers</span><h3>Skyward Kart season 2 trailer shows ten new tracks</h3><small>Yesterday</small></a>
     </div>
   </div>
-</div></section>
+</div></section> 
+-->
 
 <!-- ================= VIRAL ================= -->
+<!--
 <section id="viral"><div class="wrap">
   <h2>Going viral</h2>
   <p class="sub">Clips, memes and rumours blowing up right now. Heat shows how fast they are spreading.</p>
@@ -351,9 +419,11 @@ footer{padding:32px 0;color:var(--mute);border-top:1px solid var(--line);font-si
     <div class="vcard"><div class="heat">54K<small>heat</small></div><h3>Player builds a working calculator in-game</h3><p>Over 300 hours of careful block placing.</p></div>
     <div class="vcard"><div class="heat">41K<small>heat</small></div><h3>Meme of the week: "just one more turn"</h3><p>Strategy fans share their 4 a.m. stories.</p></div>
   </div>
-</div></section>
+</div></section> 
+-->
 
 <!-- ================= BLOG ================= -->
+<!-- 
 <section id="blog" class="alt-bg"><div class="wrap">
   <h2>From the blog</h2>
   <p class="sub">Guides, opinions and deep dives.</p>
@@ -364,17 +434,18 @@ footer{padding:32px 0;color:var(--mute);border-top:1px solid var(--line);font-si
     <article class="post" style="--h:340"><span class="tag">Opinion</span><h3>Why short games are having a moment</h3><p>Players want great stories that respect their time.</p><small>9 Nov 2026</small></article>
     <article class="post" style="--h:50"><span class="tag">Guide</span><h3>Beginner’s guide to your first space RPG</h3><p>Which class to pick, what to skip and how not to get lost.</p><small>6 Nov 2026</small></article>
   </div>
-</div></section>
+</div></section> 
+-->
 
 <!-- ================= NEWSLETTER ================= -->
-<section><div class="wrap">
+<!-- <section><div class="wrap">
   <h2>Never miss a drop</h2>
   <p class="sub">Get the weekly "what to play" list in your inbox.</p>
   <!-- Replace the action link with the one from your free Formspree or Buttondown form (see setup steps) -->
   <form class="nl" action="https://formspree.io/f/YOUR_FORM_ID" method="post">
     <input type="email" name="email" required placeholder="Your email" aria-label="Email address"><button class="btn" type="submit">Subscribe</button>
   </form>
-</div></section>
+</div></section> -->
 
 </main>
 <footer><div class="wrap">© 2026 GameDrop. Made with love for gamers.</div></footer>
