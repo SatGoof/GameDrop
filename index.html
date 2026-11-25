@@ -173,6 +173,11 @@ details .btn{padding:9px 18px;font-size:.95rem}
 footer{padding:32px 0;color:var(--mute);border-top:1px solid var(--line);font-size:.9rem}
 @media(max-width:800px){.hero .wrap,.news{grid-template-columns:1fr}section{padding:48px 0}.hero{padding:48px 0 40px;background:linear-gradient(rgba(20,16,43,.8),rgba(20,16,43,.8)),url("Images/gta-vi.jpg") center/cover no-repeat,var(--bg)}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+/* sales banner on the home page */
+.sale-banner{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;padding:32px;border-radius:22px;border:1px solid var(--line);background:linear-gradient(135deg,rgba(255,92,122,.28),rgba(255,201,60,.14)),var(--card)}
+.sale-banner h2{margin:0 0 6px}
+.sale-banner p{color:var(--mute)}
+.sale-banner:hover .btn{filter:brightness(1.1)}
 /* ===== HIDE A GAME EVERYWHERE =====
    Every game card carries a tag like x-mark-of-the-deep. To hide that game in ALL sections at once,
    delete the slash-star at the start and the star-slash at the end of its line below. To show it again, put them back. */
@@ -205,7 +210,7 @@ footer{padding:32px 0;color:var(--mute);border-top:1px solid var(--line);font-si
 -->
 <header><div class="wrap">
   <a class="logo" href="#top">Game<b>Drop</b> <h1 style="font-size: 15px;font-family: Times New Roman;">Beta</h1></a>
-  <nav aria-label="Main"><a href="#free">Free games</a><a href="#sales">Sales</a><a href="#play">What to play</a><a href="#releases">New releases</a><a href="#events">Events</a><a href="#news">News</a><a href="#viral">Viral</a><a href="#blog">Blog</a></nav>
+  <nav aria-label="Main"><a href="#free">Free games</a><a href="sales.html">Sales</a><a href="#play">What to play</a><a href="#releases">New releases</a><a href="#events">Events</a></nav>
 </div></header>
 
 <main id="top">
@@ -218,7 +223,7 @@ footer{padding:32px 0;color:var(--mute);border-top:1px solid var(--line);font-si
   </div>
   <div class="next x-grand-theft-auto-vi">
     <div class="date"><b>19</b><span>NOV 2026</span></div>
-    <div><small>NEW RELEASE</small><h3>Grand Theft Auto VI </h3><p>Action-Adventure· PS5, Xbox Series X/S</p></div>
+    <div><small>NEW RELEASE</small><h3>Grand Theft Auto VI </h3><p>Action-Adventure: PS5, Xbox Series X/S</p></div>
   </div>
 </div></section>
 
@@ -252,58 +257,12 @@ footer{padding:32px 0;color:var(--mute);border-top:1px solid var(--line);font-si
   </div>
 </div></section>
 
-<!-- ================= SALES ================= -->
+<!-- ================= SALES (the full list lives on its own page: sales.html) ================= -->
 <section id="sales" class="alt-bg"><div class="wrap">
-  <h2>Game sales</h2>
-  <p class="sub">The best discounts right now. Put the biggest savings first and remove a deal when its sale ends.</p>
-  <div class="sgrid">
-<article class="scard x-iron-frontier-2"><div class="off">-95%</div><div>
-      <h3>Need For Speed Heat</h3>
-      <p class="sprice"><s>₹3,499</s><b>₹174</b></p>
-      <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p>
-      <a class="go" href="https://store.steampowered.com/app/1426210/It_Takes_Two/" target="_blank" rel="noopener">View deal</a>
-    </div></article>
-
-    <!-- COPY FROM HERE -->
-    <article class="scard x-iron-frontier-2"><div class="off">-80%</div><div>
-      <h3>It Takes Two</h3>
-      <p class="sprice"><s>₹2,199</s><b>₹439</b></p>
-      <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p>
-      <a class="go" href="https://store.steampowered.com/app/1426210/It_Takes_Two/" target="_blank" rel="noopener">View deal</a>
-    </div></article>
-    <!-- TO HERE --> 
-<article class="scard x-iron-frontier-2"><div class="off">-60%</div><div>
-      <h3>God Of War 2018</h3>
-      <p class="sprice"><s>₹3,299</s><b>₹1319</b></p>
-      <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p>
-      <a class="go" href="https://store.steampowered.com/app/1426210/It_Takes_Two/" target="_blank" rel="noopener">View deal</a>
-    </div></article>
-<article class="scard x-iron-frontier-2"><div class="off">-33%</div><div>
-      <h3>God Of War Ragnarok</h3>
-      <p class="sprice"><s>₹3,999</s><b>₹2,679</b></p>
-      <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p>
-      <a class="go" href="https://store.steampowered.com/app/1426210/It_Takes_Two/" target="_blank" rel="noopener">View deal</a>
-    </div></article>
-<article class="scard x-iron-frontier-2"><div class="off">-50%</div><div>
-      <h3>The Last Of Us Part I</h3>
-      <p class="sprice"><s>₹3,999</s><b>₹1,999</b></p>
-      <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p>
-      <a class="go" href="https://store.steampowered.com/app/1426210/It_Takes_Two/" target="_blank" rel="noopener">View deal</a>
-    </div></article>
-<article class="scard x-iron-frontier-2"><div class="off">-33%</div><div>
-      <h3>The Last Of Us Part II Remastered</h3>
-      <p class="sprice"><s>₹3,299</s><b>₹2,210</b></p>
-      <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p>
-      <a class="go" href="https://store.steampowered.com/app/1426210/It_Takes_Two/" target="_blank" rel="noopener">View deal</a>
-    </div></article>
-<article class="scard x-iron-frontier-2"><div class="off">-33%</div><div>
-      <h3>Uncharted: Legacy of Thieves Collection</h3>
-      <p class="sprice"><s>₹3,299</s><b>₹1,088</b></p>
-      <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p>
-      <a class="go" href="https://store.steampowered.com/app/1426210/It_Takes_Two/" target="_blank" rel="noopener">View deal</a>
-    </div></article>
-
-  </div>
+  <a class="sale-banner" href="sales.html">
+    <div><h2>Game sales</h2><p>The best discounts right now.</p></div>
+    <span class="btn">See all sales →</span>
+  </a>
 </div></section>
 
 <!-- ================= WHAT TO PLAY ================= -->
@@ -340,8 +299,7 @@ footer{padding:32px 0;color:var(--mute);border-top:1px solid var(--line);font-si
   <input class="rad" type="radio" name="rpc" id="rpc-all" checked><input class="rad" type="radio" name="rpc" id="rpc-steam"><input class="rad" type="radio" name="rpc" id="rpc-epic"><input class="rad" type="radio" name="rpc" id="rpc-gog"><input class="rad" type="radio" name="rpc" id="rpc-other">
   <input class="rad" type="radio" name="rmo" id="rmo-all" checked><input class="rad" type="radio" name="rmo" id="rmo-play"><input class="rad" type="radio" name="rmo" id="rmo-epic"><input class="rad" type="radio" name="rmo" id="rmo-apple"><input class="rad" type="radio" name="rmo" id="rmo-netflix">
   <div class="bar"><label for="r-all">All</label><label for="r-pc">PC</label><label for="r-mobile">Mobile</label><label for="r-ps5">PS5</label><label for="r-xbox">Xbox</label><label for="r-switch">Nintendo</label></div>
-  <div class="bar sub-bar sub-pc"><label for="rpc-all">All PC</label><label for="rpc-steam">Steam</label><label for="rpc-epic">Epic Games</label><label for="rpc-gog">GOG</label><label for="rpc-other">Other PC</label></div>
-  <div class="bar sub-bar sub-mo"><label for="rmo-all">All Mobile</label><label for="rmo-play">Google Play</label><label for="rmo-epic">Epic Games Store</label><label for="rmo-apple">App Store</label><label for="rmo-netflix">Netflix</label></div>
+   
   <div class="rel">
 
     <!-- COPY FROM HERE
@@ -353,26 +311,7 @@ footer{padding:32px 0;color:var(--mute);border-top:1px solid var(--line);font-si
       <div class="plats"><i>PS5</i><i>Xbox</i></div></div></article>
     <!-- TO HERE -->
 
-    <article class="g pc pc-steam pc-epic ps5 xbox x-iron-frontier-3" style="--h:30"><div class="art"><!-- <img src="Images/iron-frontier-3.jpg" alt="Iron Frontier 3 cover art"> --><span>28 Nov 2026</span></div><div class="body">
-      <h3>Iron Frontier 3</h3><p>Open world</p><p>The dusty frontier returns, bigger than ever.</p>
-      <div class="plats"><i>PC · Steam</i><i>PC · Epic</i><i>PS5</i><i>Xbox</i></div></div></article>
-
-    <article class="g pc pc-steam switch x-ghostline" style="--h:280"><div class="art"><!-- <img src="Images/ghostline.jpg" alt="Ghostline cover art"> --><span>20 Nov 2026</span></div><div class="body">
-      <h3>Ghostline</h3><p>Co-op horror</p><p>Three friends, one haunted rail network.</p>
-      <div class="plats"><i>PC · Steam</i><i>Nintendo</i></div></div></article>
-
-    <article class="g pc pc-gog switch mobile mo-play mo-apple mo-netflix x-quiet-harbor" style="--h:190"><div class="art"><!-- <img src="Images/quiet-harbor.jpg" alt="Quiet Harbor cover art"> --><span>18 Nov 2026</span></div><div class="body">
-      <h3>Quiet Harbor</h3><p>Cozy sim</p><p>Fish, decorate and make friends in a seaside town.</p>
-      <div class="plats"><i>PC · GOG</i><i>Nintendo</i><i>Mobile · Google Play</i><i>Mobile · App Store</i><i>Mobile · Netflix</i></div></div></article>
-
-    <article class="g switch ps5 x-skyward-kart" style="--h:210"><div class="art"><!-- <img src="Images/skyward-kart.jpg" alt="Skyward Kart cover art"> --><span>3 Dec 2026</span></div><div class="body">
-      <h3>Skyward Kart</h3><p>Racing</p><p>Fast, bright and made for local multiplayer.</p>
-      <div class="plats"><i>Nintendo</i><i>PS5</i></div></div></article>
-
-    <article class="g mobile mo-play mo-epic pc pc-other x-pocket-dungeon" style="--h:160"><div class="art"><!-- <img src="Images/pocket-dungeon.jpg" alt="Pocket Dungeon cover art"> --><span>15 Nov 2026</span></div><div class="body">
-      <h3>Pocket Dungeon</h3><p>Roguelike</p><p>Bite-sized dungeon runs with huge replay value.</p>
-      <div class="plats"><i>Mobile · Google Play</i><i>Mobile · Epic Store</i><i>PC · Itch.io</i></div></div></article>
-
+    
   </div>
 </div></section>
 
@@ -396,30 +335,30 @@ footer{padding:32px 0;color:var(--mute);border-top:1px solid var(--line);font-si
   <div class="news">
     <a class="lead" href="#"><span class="tag">Industry · 2 hours ago</span><h3>Starfall Legacy hits one million wishlists in a week</h3><p>The space RPG’s reveal trailer is the most watched of the year.</p></a>
     <div class="list">
-      <!-- COPY FROM HERE (put your article link in href="") -->
-    <!--  <a href="#"><span class="tag">Updates</span><h3>Big update for Ember Tactics adds a map editor</h3><small>5 hours ago</small></a> -->
-      <!-- TO HERE -->
+       COPY FROM HERE (put your article link in href="") 
+      <a href="#"><span class="tag">Updates</span><h3>Big update for Ember Tactics adds a map editor</h3><small>5 hours ago</small></a> 
+       TO HERE 
       <a href="#"><span class="tag">Deals</span><h3>Surprise price drop on console bundles this weekend</h3><small>Yesterday</small></a>
       <a href="#"><span class="tag">Trailers</span><h3>Skyward Kart season 2 trailer shows ten new tracks</h3><small>Yesterday</small></a>
     </div>
   </div>
-</div></section> 
+</div></section>
 -->
 
 <!-- ================= VIRAL ================= -->
-<!--
+<!-- 
 <section id="viral"><div class="wrap">
   <h2>Going viral</h2>
   <p class="sub">Clips, memes and rumours blowing up right now. Heat shows how fast they are spreading.</p>
   <div class="viral">
-    <!-- COPY FROM HERE -->
+     COPY FROM HERE 
     <div class="vcard"><div class="heat">98K<small>heat</small></div><h3>The "impossible" boss beaten with no hits</h3><p>A speedrunner’s flawless clip has everyone talking.</p></div>
-    <!-- TO HERE -->
+     TO HERE 
     <div class="vcard"><div class="heat">76K<small>heat</small></div><h3>Rumour: a classic series is getting a remake</h3><p>Leaked store listing sparks huge debate. Unconfirmed.</p></div>
     <div class="vcard"><div class="heat">54K<small>heat</small></div><h3>Player builds a working calculator in-game</h3><p>Over 300 hours of careful block placing.</p></div>
     <div class="vcard"><div class="heat">41K<small>heat</small></div><h3>Meme of the week: "just one more turn"</h3><p>Strategy fans share their 4 a.m. stories.</p></div>
   </div>
-</div></section> 
+</div></section>
 -->
 
 <!-- ================= BLOG ================= -->
@@ -428,24 +367,26 @@ footer{padding:32px 0;color:var(--mute);border-top:1px solid var(--line);font-si
   <h2>From the blog</h2>
   <p class="sub">Guides, opinions and deep dives.</p>
   <div class="blog">
-    <!-- COPY FROM HERE -->
+     COPY FROM HERE 
     <article class="post" style="--h:200"><span class="tag">Guide</span><h3>10 hidden settings that make any game look better</h3><p>Quick tweaks to graphics and controls that cost nothing.</p><small>12 Nov 2026</small></article>
-    <!-- TO HERE -->
+     TO HERE 
     <article class="post" style="--h:340"><span class="tag">Opinion</span><h3>Why short games are having a moment</h3><p>Players want great stories that respect their time.</p><small>9 Nov 2026</small></article>
     <article class="post" style="--h:50"><span class="tag">Guide</span><h3>Beginner’s guide to your first space RPG</h3><p>Which class to pick, what to skip and how not to get lost.</p><small>6 Nov 2026</small></article>
   </div>
-</div></section> 
+</div></section>
 -->
 
 <!-- ================= NEWSLETTER ================= -->
-<!-- <section><div class="wrap">
+<!-- 
+<section><div class="wrap">
   <h2>Never miss a drop</h2>
   <p class="sub">Get the weekly "what to play" list in your inbox.</p>
-  <!-- Replace the action link with the one from your free Formspree or Buttondown form (see setup steps) -->
+   Replace the action link with the one from your free Formspree or Buttondown form (see setup steps) 
   <form class="nl" action="https://formspree.io/f/YOUR_FORM_ID" method="post">
     <input type="email" name="email" required placeholder="Your email" aria-label="Email address"><button class="btn" type="submit">Subscribe</button>
   </form>
-</div></section> -->
+</div></section>
+-->
 
 </main>
 <footer><div class="wrap">© 2026 GameDrop. Made with love for gamers.</div></footer>
