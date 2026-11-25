@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Game sales – GameDrop</title>
+<meta name="description" content="The best game discounts right now across Steam, Epic Games, PlayStation, Xbox, Nintendo and mobile.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#14102b;--bg2:#1c1740;--card:#231d4f;--line:#3a3270;--text:#f3efff;--mute:#a9a1d6;--coral:#ff5c7a;--cyan:#4de1d2;--sun:#ffc93c;color-scheme:dark}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font:400 16px/1.6 "DM Sans",system-ui,sans-serif}
+h1,h2,h3{font-family:"Bricolage Grotesque","DM Sans",sans-serif;line-height:1.1;letter-spacing:-.02em}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:3px solid var(--sun);outline-offset:3px}
+.wrap{max-width:1160px;margin:0 auto;padding:0 20px;position:relative}
+section{padding:64px 0}
+.alt-bg{background:var(--bg2)}
+h2{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;margin-bottom:8px}
+.sub{color:var(--mute);margin-bottom:28px;max-width:60ch}
+.tag{font-size:.8rem;font-weight:700;color:var(--cyan)}
+.btn{display:inline-block;background:var(--coral);color:#1a0b14;font-weight:700;padding:12px 22px;border-radius:999px;font-size:1rem}
+.btn.alt{background:transparent;color:var(--text);border:2px solid var(--line);margin-left:8px}
+.btn:hover{filter:brightness(1.1)}
+/* header */
+header{position:sticky;top:0;z-index:20;background:rgba(20,16,43,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px}
+.logo{font:800 1.5rem "Bricolage Grotesque",sans-serif;letter-spacing:-.03em}
+.logo b{color:var(--coral)}
+nav{display:flex;gap:20px;overflow-x:auto;white-space:nowrap}
+nav a{color:var(--mute);font-weight:500;font-size:.95rem}
+nav a:hover{color:var(--text)}
+nav a.on{color:var(--text);border-bottom:2px solid var(--coral)}
+.shero{padding:48px 0 24px;background:radial-gradient(900px 300px at 85% 0,rgba(255,92,122,.25),transparent 60%),radial-gradient(600px 300px at 0 100%,rgba(255,201,60,.12),transparent 60%)}
+.shero h2{font-size:clamp(2.4rem,6vw,4rem);margin:10px 0 8px}
+.back{color:var(--cyan);font-weight:700;font-size:.95rem}
+.back:hover{text-decoration:underline}
+.updated{color:var(--sun);font-weight:700;font-size:.9rem}
+.rad{position:absolute;opacity:0;width:1px;height:1px}
+.bar{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap}
+.bar label{background:var(--bg2);color:var(--mute);border:1px solid var(--line);padding:8px 18px;border-radius:999px;cursor:pointer;font-weight:500;font-size:.95rem}
+.rad:focus-visible~.bar{outline:3px solid var(--sun);outline-offset:4px;border-radius:12px}
+#s-all:checked~.bar [for=s-all],
+#s-steam:checked~.bar [for=s-steam],
+#s-epic:checked~.bar [for=s-epic],
+#s-ps:checked~.bar [for=s-ps],
+#s-xbox:checked~.bar [for=s-xbox],
+#s-nin:checked~.bar [for=s-nin],
+#s-mobile:checked~.bar [for=s-mobile]{background:var(--cyan);color:#06201d;border-color:var(--cyan);font-weight:700}
+#s-steam:checked~.salegrid .sale:not(.st-steam),#s-epic:checked~.salegrid .sale:not(.st-epic),#s-ps:checked~.salegrid .sale:not(.st-ps),#s-xbox:checked~.salegrid .sale:not(.st-xbox),#s-nin:checked~.salegrid .sale:not(.st-nin),#s-mobile:checked~.salegrid .sale:not(.st-mobile){display:none}
+.salegrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:22px}
+.sale{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
+.sart{position:relative;height:150px;overflow:hidden;background:linear-gradient(135deg,hsl(var(--h) 80% 50%),hsl(calc(var(--h) + 60) 70% 18%))}
+.sart img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.pct{position:absolute;top:12px;left:12px;background:linear-gradient(135deg,var(--coral),var(--sun));color:#1a0b14;font:800 1.2rem "Bricolage Grotesque",sans-serif;padding:4px 12px;border-radius:12px}
+.sale .body{padding:16px;display:flex;flex-direction:column;flex:1}
+.sale h3{font-size:1.15rem}
+.sprice{margin:6px 0 4px;font-weight:700}
+.sprice s{color:var(--mute);font-weight:400;margin-right:8px}
+.sprice b{color:var(--cyan);font-size:1.3rem}
+.sinfo{font-size:.85rem;color:var(--mute);margin-bottom:14px}
+.sinfo em{font-style:normal;color:var(--sun);font-weight:700}
+.sale .btn{margin-top:auto;align-self:flex-start;padding:9px 18px;font-size:.95rem}
+footer{padding:32px 0;color:var(--mute);border-top:1px solid var(--line);font-size:.9rem}
+@media(max-width:800px){section{padding:48px 0}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+/* ===== HIDE A GAME ON THIS PAGE =====
+   To hide a game, delete the slash-star at the start and the star-slash at the end of its line. */
+/* .x-need-for-speed-heat{display:none!important} */
+/* .x-it-takes-two{display:none!important} */
+/* .x-god-of-war-2018{display:none!important} */
+/* .x-god-of-war-ragnarok{display:none!important} */
+/* .x-the-last-of-us-part-i{display:none!important} */
+/* .x-the-last-of-us-part-ii-remastered{display:none!important} */
+/* .x-uncharted-legacy-of-thieves-collection{display:none!important} */
+</style>
+</head>
+<body>
+<!--
+  HOW TO EDIT THIS PAGE: copy a whole card (from <article ...> to </article>), paste it under the last card, then change only the words.
+  A card's class (st-steam, st-epic, st-ps, st-xbox, st-nin, st-mobile) decides which store tab shows it.
+  To add a game picture: remove the arrow marks around the <img> line and match the file name in the Images folder.
+-->
+<header><div class="wrap">
+  <a class="logo" href="index.html">Game<b>Drop</b></a>
+  <nav aria-label="Main"><a href="index.html">Home</a><a href="index.html#free">Free games</a><a class="on" href="sales.html">Sales</a><a href="index.html#play">What to play</a><a href="index.html#releases">New releases</a><a href="index.html#events">Events</a><a href="index.html#news">News</a><a href="index.html#viral">Viral</a><a href="index.html#blog">Blog</a></nav>
+</div></header>
+
+<main>
+<section class="shero"><div class="wrap">
+  <a class="back" href="index.html">← Back to home</a>
+  <h2>Game sales</h2>
+  <p class="sub">The best discounts right now. Pick a store to filter. Remove a deal when its sale ends.</p>
+  <p class="updated">Last updated: 25 Nov 2026</p>
+</div></section>
+
+<section><div class="wrap">
+  <input class="rad" type="radio" name="rs" id="s-all" checked><input class="rad" type="radio" name="rs" id="s-steam"><input class="rad" type="radio" name="rs" id="s-epic"><input class="rad" type="radio" name="rs" id="s-ps"><input class="rad" type="radio" name="rs" id="s-xbox"><input class="rad" type="radio" name="rs" id="s-nin"><input class="rad" type="radio" name="rs" id="s-mobile">
+  <div class="bar"><label for="s-all">All</label><label for="s-steam">Steam</label><label for="s-epic">Epic Games</label><label for="s-ps">PlayStation</label><label for="s-xbox">Xbox</label><label for="s-nin">Nintendo</label><label for="s-mobile">Mobile</label></div>
+  <div class="salegrid">
+
+    <!-- COPY FROM HERE -->
+    <article class="sale st-steam x-need-for-speed-heat" style="--h:10">
+      <div class="sart"><!-- <img src="Images/need-for-speed-heat.jpg" alt="Need For Speed Heat cover art"> --><span class="pct">-95%</span></div>
+      <div class="body">
+        <h3>Need For Speed Heat</h3>
+        <p class="sprice"><s>₹3,499</s><b>₹174</b></p>
+        <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p>
+        <a class="btn" href="https://store.steampowered.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <!-- TO HERE -->
+    <article class="sale st-steam x-it-takes-two" style="--h:330">
+      <div class="sart"><!-- <img src="Images/it-takes-two.jpg" alt="It Takes Two cover art"> --><span class="pct">-80%</span></div>
+      <div class="body">
+        <h3>It Takes Two</h3>
+        <p class="sprice"><s>₹2,199</s><b>₹439</b></p>
+        <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p>
+        <a class="btn" href="https://store.steampowered.com/app/1426210/It_Takes_Two/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-steam x-god-of-war-2018" style="--h:20">
+      <div class="sart"><!-- <img src="Images/god-of-war-2018.jpg" alt="God Of War 2018 cover art"> --><span class="pct">-60%</span></div>
+      <div class="body">
+        <h3>God Of War 2018</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹1319</b></p>
+        <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p>
+        <a class="btn" href="https://store.steampowered.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-steam x-god-of-war-ragnarok" style="--h:200">
+      <div class="sart"><!-- <img src="Images/god-of-war-ragnarok.jpg" alt="God Of War Ragnarok cover art"> --><span class="pct">-33%</span></div>
+      <div class="body">
+        <h3>God Of War Ragnarok</h3>
+        <p class="sprice"><s>₹3,999</s><b>₹2,679</b></p>
+        <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p>
+        <a class="btn" href="https://store.steampowered.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-steam x-the-last-of-us-part-i" style="--h:140">
+      <div class="sart"><!-- <img src="Images/the-last-of-us-part-i.jpg" alt="The Last Of Us Part I cover art"> --><span class="pct">-50%</span></div>
+      <div class="body">
+        <h3>The Last Of Us Part I</h3>
+        <p class="sprice"><s>₹3,999</s><b>₹1,999</b></p>
+        <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p>
+        <a class="btn" href="https://store.steampowered.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-steam x-the-last-of-us-part-ii-remastered" style="--h:100">
+      <div class="sart"><!-- <img src="Images/the-last-of-us-part-ii-remastered.jpg" alt="The Last Of Us Part II Remastered cover art"> --><span class="pct">-33%</span></div>
+      <div class="body">
+        <h3>The Last Of Us Part II Remastered</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹2,210</b></p>
+        <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p>
+        <a class="btn" href="https://store.steampowered.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-steam x-uncharted-legacy-of-thieves-collection" style="--h:260">
+      <div class="sart"><!-- <img src="Images/uncharted-legacy-of-thieves-collection.jpg" alt="Uncharted: Legacy of Thieves Collection cover art"> --><span class="pct">-33%</span></div>
+      <div class="body">
+        <h3>Uncharted: Legacy of Thieves Collection</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹1,088</b></p>
+        <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p>
+        <a class="btn" href="https://store.steampowered.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+
+<article class="sale st-steam x-uncharted-legacy-of-thieves-collection" style="--h:260">
+      <div class="sart"><!-- <img src="Images/uncharted-legacy-of-thieves-collection.jpg" alt="Uncharted: Legacy of Thieves Collection cover art"> --><span class="pct">-33%</span></div>
+      <div class="body">
+        <h3>Uncharted: Legacy of Thieves Collection</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹1,088</b></p>
+        <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p>
+        <a class="btn" href="https://store.steampowered.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+
+  </div>
+</div></section>
+</main>
+<footer><div class="wrap">© 2026 GameDrop. Made with love for gamers. · <a href="index.html" style="color:var(--cyan)">Home</a></div></footer>
+</body>
+</html>
