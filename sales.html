@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Game sales – GameDrop</title>
+<meta name="description" content="The best game discounts right now across Steam, Epic Games, PlayStation, Xbox, Nintendo and mobile.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#14102b;--bg2:#1c1740;--card:#231d4f;--line:#3a3270;--text:#f3efff;--mute:#a9a1d6;--coral:#ff5c7a;--cyan:#4de1d2;--sun:#ffc93c;color-scheme:dark}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font:400 16px/1.6 "DM Sans",system-ui,sans-serif}
+h1,h2,h3{font-family:"Bricolage Grotesque","DM Sans",sans-serif;line-height:1.1;letter-spacing:-.02em}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:3px solid var(--sun);outline-offset:3px}
+.wrap{max-width:1160px;margin:0 auto;padding:0 20px;position:relative}
+section{padding:64px 0}
+.alt-bg{background:var(--bg2)}
+h2{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;margin-bottom:8px}
+.sub{color:var(--mute);margin-bottom:28px;max-width:60ch}
+.tag{font-size:.8rem;font-weight:700;color:var(--cyan)}
+.btn{display:inline-block;background:var(--coral);color:#1a0b14;font-weight:700;padding:12px 22px;border-radius:999px;font-size:1rem}
+.btn.alt{background:transparent;color:var(--text);border:2px solid var(--line);margin-left:8px}
+.btn:hover{filter:brightness(1.1)}
+/* header */
+header{position:sticky;top:0;z-index:20;background:rgba(20,16,43,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px}
+.logo{font:800 1.5rem "Bricolage Grotesque",sans-serif;letter-spacing:-.03em}
+.logo b{color:var(--coral)}
+nav{display:flex;gap:20px;overflow-x:auto;white-space:nowrap}
+nav a{color:var(--mute);font-weight:500;font-size:.95rem}
+nav a:hover{color:var(--text)}
+nav a.on{color:var(--text);border-bottom:2px solid var(--coral)}
+.shero{padding:48px 0 24px;background:radial-gradient(900px 300px at 85% 0,rgba(255,92,122,.25),transparent 60%),radial-gradient(600px 300px at 0 100%,rgba(255,201,60,.12),transparent 60%)}
+.shero h2{font-size:clamp(2.4rem,6vw,4rem);margin:10px 0 8px}
+.back{color:var(--cyan);font-weight:700;font-size:.95rem}
+.back:hover{text-decoration:underline}
+.updated{color:var(--sun);font-weight:700;font-size:.9rem}
+.rad{position:absolute;opacity:0;width:1px;height:1px}
+.bar{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap}
+.bar label{background:var(--bg2);color:var(--mute);border:1px solid var(--line);padding:8px 18px;border-radius:999px;cursor:pointer;font-weight:500;font-size:.95rem}
+.rad:focus-visible~.bar{outline:3px solid var(--sun);outline-offset:4px;border-radius:12px}
+#s-all:checked~.bar [for=s-all],
+#s-steam:checked~.bar [for=s-steam],
+#s-epic:checked~.bar [for=s-epic],
+#s-eneba:checked~.bar [for=s-eneba],
+#s-ps:checked~.bar [for=s-ps],
+#s-xbox:checked~.bar [for=s-xbox],
+#s-nin:checked~.bar [for=s-nin],
+#s-mobile:checked~.bar [for=s-mobile],
+#o-def:checked~.bar [for=o-def],
+#o-low:checked~.bar [for=o-low],
+#o-high:checked~.bar [for=o-high]{background:var(--cyan);color:#06201d;border-color:var(--cyan);font-weight:700}
+#s-steam:checked~.salegrid .sale:not(.st-steam),#s-epic:checked~.salegrid .sale:not(.st-epic),#s-eneba:checked~.salegrid .sale:not(.st-eneba),#s-ps:checked~.salegrid .sale:not(.st-ps),#s-xbox:checked~.salegrid .sale:not(.st-xbox),#s-nin:checked~.salegrid .sale:not(.st-nin),#s-mobile:checked~.salegrid .sale:not(.st-mobile){display:none}
+/* PRICE SORTING: each card has --p (its price in whole rupees). Low to high uses it as is, high to low flips it. */
+#o-low:checked~.salegrid .sale{order:var(--p)}
+#o-high:checked~.salegrid .sale{order:calc(var(--p) * -1)}
+.salegrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:22px}
+.sale{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
+.sart{position:relative;height:150px;overflow:hidden;background:linear-gradient(135deg,hsl(var(--h) 80% 50%),hsl(calc(var(--h) + 60) 70% 18%))}
+.sart img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.pct{position:absolute;top:12px;left:12px;background:linear-gradient(135deg,var(--coral),var(--sun));color:#1a0b14;font:800 1.2rem "Bricolage Grotesque",sans-serif;padding:4px 12px;border-radius:12px}
+.sale .body{padding:16px;display:flex;flex-direction:column;flex:1}
+.sale h3{font-size:1.15rem}
+.sprice{margin:6px 0 4px;font-weight:700}
+.sprice s{color:var(--mute);font-weight:400;margin-right:8px}
+.sprice b{color:var(--cyan);font-size:1.3rem}
+.sinfo{font-size:.85rem;color:var(--mute);margin-bottom:14px}
+.sinfo em{font-style:normal;color:var(--sun);font-weight:700}
+.sale .btn{margin-top:auto;align-self:flex-start;padding:9px 18px;font-size:.95rem}
+.barlbl{color:var(--mute);align-self:center;font-size:.9rem;font-weight:700;margin-right:4px}
+.key{display:inline-block;background:rgba(77,225,210,.15);color:var(--cyan);border:1px solid rgba(77,225,210,.4);padding:0 8px;border-radius:6px;font-size:.78rem;font-weight:700}
+footer{padding:32px 0;color:var(--mute);border-top:1px solid var(--line);font-size:.9rem}
+@media(max-width:800px){section{padding:48px 0}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+</style>
+</head>
+<body>
+<!--
+  HOW TO EDIT THIS PAGE: copy a whole card (from <article ...> to </article>), paste it under the last card, then change only the words.
+  A card's class (st-steam, st-epic, st-ps, st-xbox, st-nin, st-mobile) decides which store tab shows it.
+  To add a game picture: remove the arrow marks around the <img> line and match the file name in the Images folder.
+-->
+<header><div class="wrap">
+  <a class="logo" href="index.html">Game<b>Drop</b><h1 style="font-size: 15px;font-family: Times New Roman;">Beta</h1></a>
+  <nav aria-label="Main"><a href="index.html">Home</a><a href="index.html#free">Free games</a><a class="on" href="sales.html">Sales</a><a href="index.html#play">What to play</a><a href="index.html#releases">New releases</a><a href="index.html#events">Events</a><a href="index.html#news">News</a><a href="index.html#viral">Viral</a><a href="index.html#blog">Blog</a></nav>
+</div></header>
+
+<main>
+<section class="shero"><div class="wrap">
+  <a class="back" href="index.html">← Back to home</a>
+  <h2>Game sales</h2>
+  <p class="sub">The best discounts right now. Pick a store to filter. Remove a deal when its sale ends.</p>
+  <p class="updated">Last updated: 25 Nov 2026</p>
+</div></section>
+
+<section><div class="wrap">
+  <input class="rad" type="radio" name="rs" id="s-all" checked><input class="rad" type="radio" name="rs" id="s-steam"><input class="rad" type="radio" name="rs" id="s-epic"><input class="rad" type="radio" name="rs" id="s-eneba"><input class="rad" type="radio" name="rs" id="s-ps"><input class="rad" type="radio" name="rs" id="s-xbox"><input class="rad" type="radio" name="rs" id="s-nin"><input class="rad" type="radio" name="rs" id="s-mobile">
+  <input class="rad" type="radio" name="so" id="o-def" checked><input class="rad" type="radio" name="so" id="o-low"><input class="rad" type="radio" name="so" id="o-high">
+  <div class="bar"><span class="barlbl">Store:</span><label for="s-all">All</label><label for="s-steam">Steam</label><label for="s-epic">Epic Games</label><label for="s-eneba">Eneba</label><label for="s-ps">PlayStation</label><label for="s-xbox">Xbox</label><label for="s-nin">Nintendo</label><label for="s-mobile">Mobile</label></div>
+  <div class="bar"><span class="barlbl">Sort by:</span><label for="o-def">Featured</label><label for="o-low">Price: low to high</label><label for="o-high">Price: high to low</label></div>
+  <div class="salegrid">
+
+    <!-- COPY FROM HERE -->
+    <article class="sale st-steam x-need-for-speed-heat" style="--h:10;--p:174">
+      <div class="sart"><img src="Images/nfsheat.jpg" alt="Need For Speed Heat cover art"><span class="pct">-95%</span></div>
+      <div class="body">
+        <h3>Need For Speed Heat</h3>
+        <p class="sprice"><s>₹3,499</s><b>₹174</b></p>
+        <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p>
+        <a class="btn" href="https://store.steampowered.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <!-- TO HERE -->
+    <article class="sale st-steam x-it-takes-two" style="--h:330;--p:439">
+      <div class="sart"><img src="Images/ittakestwo.jpg" alt="It Takes Two cover art"><span class="pct">-80%</span></div>
+      <div class="body">
+        <h3>It Takes Two</h3>
+        <p class="sprice"><s>₹2,199</s><b>₹439</b></p>
+        <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p>
+        <a class="btn" href="https://store.steampowered.com/app/1426210/It_Takes_Two/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-steam x-god-of-war-2018" style="--h:20;--p:1319">
+      <div class="sart"><img src="Images/gow.jpg" alt="God Of War 2018 cover art"><span class="pct">-60%</span></div>
+      <div class="body">
+        <h3>God Of War 2018</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹1319</b></p>
+        <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p>
+        <a class="btn" href="https://store.steampowered.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-steam x-god-of-war-ragnarok" style="--h:200;--p:2679">
+      <div class="sart"><img src="Images/gowragnarok.jpg" alt="God Of War Ragnarok cover art"><span class="pct">-33%</span></div>
+      <div class="body">
+        <h3>God Of War Ragnarok</h3>
+        <p class="sprice"><s>₹3,999</s><b>₹2,679</b></p>
+        <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p>
+        <a class="btn" href="https://store.steampowered.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-steam x-the-last-of-us-part-i" style="--h:140;--p:1999">
+      <div class="sart"><img src="Images/loupi.jpg" alt="The Last Of Us Part I cover art"><span class="pct">-50%</span></div>
+      <div class="body">
+        <h3>The Last Of Us Part I</h3>
+        <p class="sprice"><s>₹3,999</s><b>₹1,999</b></p>
+        <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p>
+        <a class="btn" href="https://store.steampowered.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-steam x-the-last-of-us-part-ii-remastered" style="--h:100;--p:2210">
+      <div class="sart"><img src="Images/loupii.jpg" alt="The Last Of Us Part II Remastered cover art"><span class="pct">-33%</span></div>
+      <div class="body">
+        <h3>The Last Of Us Part II Remastered</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹2,210</b></p>
+        <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p>
+        <a class="btn" href="https://store.steampowered.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-steam x-uncharted-legacy-of-thieves-collection" style="--h:260;--p:1088">
+      <div class="sart"><img src="Images/ulotc.jpg" alt="Uncharted: Legacy of Thieves Collection cover art"><span class="pct">-33%</span></div>
+      <div class="body">
+        <h3>Uncharted: Legacy of Thieves Collection</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹1,088</b></p>
+        <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p>
+        <a class="btn" href="https://store.steampowered.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+
+    <!-- ===== ADDED FROM Games_Sale.xlsx =====
+         --p is the sale price in whole rupees (used for the price sort). Change it when you change the price.
+         Store tab classes: st-steam  st-epic  st-eneba  st-ps  st-xbox  st-nin  st-mobile
+         The little teal tag on Eneba cards is the platform key. Paste each game's real store link into href. -->
+    <article class="sale st-steam x-007-first-light" style="--h:213;--p:1749">
+      <div class="sart"><img src="Images/007-first-light.jpg" alt="007 First Light cover art"><span class="pct">-50%</span></div>
+      <div class="body">
+        <h3>007 First Light</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹1,749</b></p>
+        <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p>
+        <a class="btn" href="https://store.steampowered.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-epic x-alan-wake-ii-deluxe-edition" style="--h:137;--p:1154">
+      <div class="sart"><img src="Images/alan-wake-ii-deluxe-edition.jpg" alt="Alan Wake II Deluxe Edition cover art"><span class="pct">-70%</span></div>
+      <div class="body">
+        <h3>Alan Wake II Deluxe Edition</h3>
+        <p class="sprice"><s>₹3,847</s><b>₹1,154</b></p>
+        <p class="sinfo">Epic Games <em>Ends 01 Dec 9.30PM IST</em> · Lowest price ever</p>
+        <a class="btn" href="https://launcher.store.epicgames.com/p/alan-wake-2--deluxe-edition" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-eneba x-batman-arkham-collection" style="--h:1;--p:377">
+      <div class="sart"><img src="C:\Users\Satyaraj\Documents\My Website GAMEDROP\Images/ElrPSnwfavpYUhzcAw4QgTyYcjFMaFXCgqoMXO660J8.jpg" alt="Batman Arkham Collection cover art"><span class="pct">40% Cashback</span></div>
+      <div class="body">
+        <h3>Batman Arkham Collection</h3>
+        <p class="sprice"><b>₹370.52</b></p>
+        <p class="sinfo">Eneba · <span class="key">Steam Key</span>· Lowest price ever</p>
+        <a class="btn" href="https://www.eneba.com/steam-batman-arkham-collection-steam-key-global/flashdeals" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-steam x-batman-arkham-city" style="--h:202;--p:113">
+      <div class="sart"><!-- <img src="Images/batman-arkham-city.jpg" alt="Batman Arkham City cover art"> --><span class="pct">-50%</span></div>
+      <div class="body">
+        <h3>Batman Arkham City</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹113</b></p>
+        <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p></p>
+        <a class="btn" href="https://store.steampowered.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-steam x-batman-arkham-knight" style="--h:190;--p:202">
+      <div class="sart"><!-- <img src="Images/batman-arkham-knight.jpg" alt="Batman Arkham Knight cover art"> --><span class="pct">-50%</span></div>
+      <div class="body">
+        <h3>Batman Arkham Knight</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹202</b></p>
+        <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p></p>
+        <a class="btn" href="https://store.steampowered.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+       <article class="sale st-steam x-batman-arkham-asylum" style="--h:284;--p:84">
+      <div class="sart"><!-- <img src="Images/batman-arkham-asylum.jpg" alt="Batman Arkham Asylum cover art"> --><span class="pct">-50%</span></div>
+      <div class="body">
+        <h3>Batman Arkham Asylum</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹84</b></p>
+        <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p></p>
+        <a class="btn" href="https://store.steampowered.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-steam x-batman-origin" style="--h:240;--p:113">
+      <div class="sart"><!-- <img src="Images/batman-origin.jpg" alt="Batman Origin cover art"> --><span class="pct">-50%</span></div>
+      <div class="body">
+        <h3>Batman Origin</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹113</b></p>
+        <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p></p>
+        <a class="btn" href="https://store.steampowered.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-steam x-battlefield-5" style="--h:170;--p:129">
+      <div class="sart"><!-- <img src="Images/battlefield-5.jpg" alt="Battlefield 5 cover art"> --><span class="pct">-50%</span></div>
+      <div class="body">
+        <h3>Battlefield 5</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹129</b></p>
+        <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p></p>
+        <a class="btn" href="https://store.steampowered.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-epic x-blasphemous-digital-deluxe" style="--h:66;--p:99">
+      <div class="sart"><img src="Images/blasphemous-digital-deluxe.jpg" alt="Blasphemous Digital Deluxe cover art"><span class="pct">-90%</span></div>
+      <div class="body">
+        <h3>Blasphemous Digital Deluxe</h3>
+        <p class="sprice"><s>₹992.70</s><b>₹99.27</b></p>
+        <p class="sinfo">Epic Games. <em>Ends 01 Dec 9.30PM IST</em> · Lowest price ever</p></p>
+        <a class="btn" href="https://launcher.store.epicgames.com/p/blasphemous--digital-deluxe-edition" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-eneba x-choo-choo-charles" style="--h:166;--p:101">
+      <div class="sart"><img src="Images/choo-choo-charles.jpg" alt="Choo-Choo Charles cover art"><span class="pct">-91%</span></div>
+      <div class="body">
+        <h3>Choo-Choo Charles</h3>
+        <p class="sprice"><s>₹8,80</s><b>₹80.99</b></p>
+        <p class="sinfo">Eneba · <span class="key">Steam Key</span></p>
+        <a class="btn" href="https://www.eneba.com/steam-choo-choo-charles-pc-steam-key-global/bf-supply" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-eneba x-dark-souls-remastered" style="--h:54;--p:375">
+      <div class="sart"><!-- <img src="Images/dark-souls-remastered.jpg" alt="Dark Souls Remastered cover art"> --><span class="pct">-50%</span></div>
+      <div class="body">
+        <h3>Dark Souls Remastered</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹374.84</b></p>
+        <p class="sinfo">Eneba · <span class="key">Xbox One</span></p>
+        <a class="btn" href="https://www.eneba.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-eneba x-darksiders-warmastered-edition" style="--h:173;--p:86">
+      <div class="sart"><!-- <img src="Images/darksiders-warmastered-edition.jpg" alt="Darksiders Warmastered Edition cover art"> --><span class="pct">-50%</span></div>
+      <div class="body">
+        <h3>Darksiders Warmastered Edition</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹86.35</b></p>
+        <p class="sinfo">Eneba · <span class="key">Steam Key</span></p>
+        <a class="btn" href="https://www.eneba.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-steam x-days-gone" style="--h:291;--p:824">
+      <div class="sart"><!-- <img src="Images/days-gone.jpg" alt="Days Gone cover art"> --><span class="pct">-50%</span></div>
+      <div class="body">
+        <h3>Days Gone</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹824</b></p>
+        <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p></p>
+        <a class="btn" href="https://store.steampowered.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-steam x-dead-space" style="--h:139;--p:299">
+      <div class="sart"><!-- <img src="Images/dead-space.jpg" alt="Dead Space cover art"> --><span class="pct">-50%</span></div>
+      <div class="body">
+        <h3>Dead Space</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹299</b></p>
+        <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p></p>
+        <a class="btn" href="https://store.steampowered.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-steam x-death-stranding-directors-cut" style="--h:50;--p:624">
+      <div class="sart"><!-- <img src="Images/death-stranding-directors-cut.jpg" alt="Death Stranding Director&#x27;s Cut cover art"> --><span class="pct">-50%</span></div>
+      <div class="body">
+        <h3>Death Stranding Director&#x27;s Cut</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹624</b></p>
+        <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p></p>
+        <a class="btn" href="https://store.steampowered.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-steam x-detroit-become-human" style="--h:173;--p:199">
+      <div class="sart"><!-- <img src="Images/detroit-become-human.jpg" alt="Detroit: Become Human ,cover art"> --><span class="pct">-50%</span></div>
+      <div class="body">
+        <h3>Detroit: Become Human</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹199</b></p>
+        <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p></p>
+        <a class="btn" href="https://store.steampowered.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-eneba x-dying-light" style="--h:40;--p:184">
+      <div class="sart"><!-- <img src="Images/dying-light.jpg" alt="Dying Light ,cover art"> --><span class="pct">-50%</span></div>
+      <div class="body">
+        <h3>Dying Light</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹183.87</b></p>
+        <p class="sinfo">Eneba · <span class="key">Steam Key</span></p>
+        <a class="btn" href="https://www.eneba.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-steam x-fallout-4" style="--h:352;--p:249">
+      <div class="sart"><!-- <img src="Images/fallout-4.jpg" alt="Fallout 4 ,cover art"> --><span class="pct">-50%</span></div>
+      <div class="body">
+        <h3>Fallout 4</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹249</b></p>
+        <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p></p>
+        <a class="btn" href="https://store.steampowered.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-steam x-got" style="--h:330;--p:1999">
+      <div class="sart"><!-- <img src="Images/got.jpg" alt="GOT ,cover art"> --><span class="pct">-50%</span></div>
+      <div class="body">
+        <h3>GOT</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹1,999</b></p>
+        <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p></p>
+        <a class="btn" href="https://store.steampowered.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-steam x-hades" style="--h:49;--p:275">
+      <div class="sart"><!-- <img src="Images/hades.jpg" alt="Hades ,cover art"> --><span class="pct">-50%</span></div>
+      <div class="body">
+        <h3>Hades</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹275</b></p>
+        <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p></p>
+        <a class="btn" href="https://store.steampowered.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-eneba x-heavy-rain" style="--h:4;--p:162">
+      <div class="sart"><!-- <img src="Images/heavy-rain.jpg" alt="Heavy Rain ,cover art"> --><span class="pct">-50%</span></div>
+      <div class="body">
+        <h3>Heavy Rain</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹161.52</b></p>
+        <p class="sinfo">Eneba · <span class="key">Steam Key</span></p>
+        <a class="btn" href="https://www.eneba.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-steam x-hogwarts-legacy" style="--h:221;--p:399">
+      <div class="sart"><!-- <img src="Images/hogwarts-legacy.jpg" alt="Hogwarts Legacy ,cover art"> --><span class="pct">-50%</span></div>
+      <div class="body">
+        <h3>Hogwarts Legacy</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹399</b></p>
+        <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p></p>
+        <a class="btn" href="https://store.steampowered.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-eneba x-human-fall-flat" style="--h:205;--p:101">
+      <div class="sart"><!-- <img src="Images/human-fall-flat.jpg" alt="Human Fall Flat ,cover art"> --><span class="pct">-50%</span></div>
+      <div class="body">
+        <h3>Human Fall Flat</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹100.57</b></p>
+        <p class="sinfo">Eneba · <span class="key">Steam Key</span></p>
+        <a class="btn" href="https://www.eneba.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-eneba x-jusant" style="--h:337;--p:163">
+      <div class="sart"><!-- <img src="Images/jusant.jpg" alt="Jusant ,cover art"> --><span class="pct">-50%</span></div>
+      <div class="body">
+        <h3>Jusant</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹162.57</b></p>
+        <p class="sinfo">Eneba · <span class="key">Steam Key</span></p>
+        <a class="btn" href="https://www.eneba.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-steam x-kingdom-come-deliverance-2" style="--h:128;--p:1108">
+      <div class="sart"><!-- <img src="Images/kingdom-come-deliverance-2.jpg" alt="Kingdom Come: Deliverance 2 ,cover art"> --><span class="pct">-50%</span></div>
+      <div class="body">
+        <h3>Kingdom Come: Deliverance 2</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹1,108</b></p>
+        <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p></p>
+        <a class="btn" href="https://store.steampowered.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-steam x-life-is-strange" style="--h:114;--p:299">
+      <div class="sart"><!-- <img src="Images/life-is-strange.jpg" alt="Life Is Strange ,cover art"> --><span class="pct">-50%</span></div>
+      <div class="body">
+        <h3>Life Is Strange</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹299</b></p>
+        <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p></p>
+        <a class="btn" href="https://store.steampowered.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-eneba x-mad-max" style="--h:209;--p:175">
+      <div class="sart"><!-- <img src="Images/mad-max.jpg" alt="Mad Max ,cover art"> --><span class="pct">-50%</span></div>
+      <div class="body">
+        <h3>Mad Max</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹174.69</b></p>
+        <p class="sinfo">Eneba · <span class="key">Steam Key</span></p>
+        <a class="btn" href="https://www.eneba.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-steam x-marvels-spider-man-2" style="--h:110;--p:2679">
+      <div class="sart"><!-- <img src="Images/marvels-spider-man-2.jpg" alt="Marvel&#x27;s Spider-Man 2 ,cover art"> --><span class="pct">-50%</span></div>
+      <div class="body">
+        <h3>Marvel&#x27;s Spider-Man 2</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹2,679</b></p>
+        <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p></p>
+        <a class="btn" href="https://store.steampowered.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-eneba x-middle-earth-shadow-of-mordor" style="--h:81;--p:192">
+      <div class="sart"><!-- <img src="Images/middle-earth-shadow-of-mordor.jpg" alt="Middle-earth: Shadow of Mordor ,cover art"> --><span class="pct">-50%</span></div>
+      <div class="body">
+        <h3>Middle-earth: Shadow of Mordor</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹191.99</b></p>
+        <p class="sinfo">Eneba · <span class="key">Steam Key</span></p>
+        <a class="btn" href="https://www.eneba.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-eneba x-mortal-kombat-xl" style="--h:207;--p:215">
+      <div class="sart"><!-- <img src="Images/mortal-kombat-xl.jpg" alt="Mortal Kombat XL ,cover art"> --><span class="pct">-50%</span></div>
+      <div class="body">
+        <h3>Mortal Kombat XL</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹215.36</b></p>
+        <p class="sinfo">Eneba · <span class="key">Steam Key</span></p>
+        <a class="btn" href="https://www.eneba.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-steam x-ori-and-the-will-of-the-wisps" style="--h:176;--p:174">
+      <div class="sart"><!-- <img src="Images/ori-and-the-will-of-the-wisps.jpg" alt="Ori and the Will of the Wisps ,cover art"> --><span class="pct">-50%</span></div>
+      <div class="body">
+        <h3>Ori and the Will of the Wisps</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹174</b></p>
+        <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p></p>
+        <a class="btn" href="https://store.steampowered.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-eneba x-planet-of-lana" style="--h:243;--p:101">
+      <div class="sart"><!-- <img src="Images/planet-of-lana.jpg" alt="Planet of Lana ,cover art"> --><span class="pct">-50%</span></div>
+      <div class="body">
+        <h3>Planet of Lana</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹100.57</b></p>
+        <p class="sinfo">Eneba · <span class="key">Steam Key</span></p>
+        <a class="btn" href="https://www.eneba.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-eneba x-prince-of-persia-the-lost-crown" style="--h:59;--p:383">
+      <div class="sart"><!-- <img src="Images/prince-of-persia-the-lost-crown.jpg" alt="Prince of Persia: The Lost Crown ,cover art"> --><span class="pct">-50%</span></div>
+      <div class="body">
+        <h3>Prince of Persia: The Lost Crown</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹382.97</b></p>
+        <p class="sinfo">Eneba · <span class="key">Steam Key</span></p>
+        <a class="btn" href="https://www.eneba.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-steam x-prince-of-persia-the-sands-of-time" style="--h:30;--p:99">
+      <div class="sart"><!-- <img src="Images/prince-of-persia-the-sands-of-time.jpg" alt="Prince of Persia: The Sands of Time ,cover art"> --><span class="pct">-50%</span></div>
+      <div class="body">
+        <h3>Prince of Persia: The Sands of Time</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹99</b></p>
+        <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p></p>
+        <a class="btn" href="https://store.steampowered.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-steam x-prince-of-persia-the-two-thrones" style="--h:317;--p:99">
+      <div class="sart"><!-- <img src="Images/prince-of-persia-the-two-thrones.jpg" alt="Prince of Persia: The Two Thrones ,cover art"> --><span class="pct">-50%</span></div>
+      <div class="body">
+        <h3>Prince of Persia: The Two Thrones</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹99</b></p>
+        <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p></p>
+        <a class="btn" href="https://store.steampowered.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-steam x-prince-of-persia-warrior-within" style="--h:267;--p:99">
+      <div class="sart"><!-- <img src="Images/prince-of-persia-warrior-within.jpg" alt="Prince of Persia: Warrior Within ,cover art"> --><span class="pct">-50%</span></div>
+      <div class="body">
+        <h3>Prince of Persia: Warrior Within</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹99</b></p>
+        <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p></p>
+        <a class="btn" href="https://store.steampowered.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-steam x-red-dead-redemption-2" style="--h:69;--p:1249">
+      <div class="sart"><!-- <img src="Images/red-dead-redemption-2.jpg" alt="Red Dead Redemption 2 ,cover art"> --><span class="pct">-80%</span></div>
+      <div class="body">
+        <h3>Red Dead Redemption 2</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹1,249</b></p>
+        <p class="sinfo">Steam · <em>Ends 01 Dec</em> · Lowest price ever</p></p>
+        <a class="btn" href="https://store.steampowered.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-epic x-red-dead-redemption-2-ultimate-edition" style="--h:228;--p:1540">
+      <div class="sart"> <img src="Images/red-dead-redemption-2-ultimate-edition.jpg" alt="Red Dead Redemption 2 Ultimate Edition ,cover art"> <span class="pct">-80%</span></div>
+      <div class="body">
+        <h3>Red Dead Redemption 2 Ultimate Edition</h3>
+        <p class="sprice"><s>₹7,699</s><b>₹1,539.80</b></p>
+        <p class="sinfo">Epic Games. <em>Ends 01 Dec 9.30PM IST</em> · Lowest price ever</p></p>
+        <a class="btn" href="https://store.epicgames.com/p/red-dead-redemption-2--ultimate-edition" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-epic x-resident-evil-requiem-deluxe-edition" style="--h:353;--p:3359">
+      <div class="sart"><img src="Images/resident-evil-requiem-deluxe-edition.jpg" alt="Resident Evil Requiem Deluxe Edition ,cover art"><span class="pct">-30%</span></div>
+      <div class="body">
+        <h3>Resident Evil Requiem Deluxe Edition</h3>
+        <p class="sprice"><s>₹4,799</s><b>₹3,359.30</b></p>
+        <p class="sinfo">Epic Games. <em>Ends 01 Dec 9.30PM IST</em> · Lowest price ever</p></p>
+        <a class="btn" href="https://store.epicgames.com/p/resident-evil-requiem-deluxe-edition-8cea0f" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-epic x-sherlock-holmes-chapter-one-deluxe-edition" style="--h:304;--p:300">
+      <div class="sart"><img src="Images/sherlock-holmes-chapter-one-deluxe-edition.jpg" alt="Sherlock Holmes Chapter One Deluxe Edition ,cover art"><span class="pct">-90%</span></div>
+      <div class="body">
+        <h3>Sherlock Holmes Chapter One Deluxe Edition</h3>
+        <p class="sprice"><s>₹2,999</s><b>₹299.90</b></p>
+        <p class="sinfo">Epic Games. <em>Ends 01 Dec 9.30PM IST</em> · Lowest price ever</p></p>
+        <a class="btn" href="https://store.epicgames.com/p/sherlock-holmes-chapter-one--deluxe-edition" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-steam x-marvels-spider-man-remastered" style="--h:336;--p:1599">
+      <div class="sart"><!-- <img src="Images/marvels-spider-man-remastered.jpg" alt="Marvel&#x27;s Spider-Man Remastered ,cover art"> --><span class="pct">-50%</span></div>
+      <div class="body">
+        <h3>Marvel&#x27;s Spider-Man Remastered</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹1,599</b></p>
+        <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p></p>
+        <a class="btn" href="https://store.steampowered.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-eneba x-suicide-squad-kill-the-justice-league" style="--h:188;--p:199">
+      <div class="sart"><!-- <img src="Images/suicide-squad-kill-the-justice-league.jpg" alt="Suicide Squad: Kill the Justice League ,cover art"> --><span class="pct">-50%</span></div>
+      <div class="body">
+        <h3>Suicide Squad: Kill the Justice League</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹199.10</b></p>
+        <p class="sinfo">Eneba · <span class="key">Steam Key</span></p>
+        <a class="btn" href="https://www.eneba.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-eneba x-suicide-squad-kill-the-justice-league-digital-deluxe-edition" style="--h:76;--p:204">
+      <div class="sart"><!-- <img src="Images/suicide-squad-kill-the-justice-league-digital-deluxe-edition.jpg" alt="Suicide Squad: Kill the Justice League Digital Deluxe Edition ,cover art"> --><span class="pct">-50%</span></div>
+      <div class="body">
+        <h3>Suicide Squad: Kill the Justice League Digital Deluxe Edition</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹204.18</b></p>
+        <p class="sinfo">Eneba · <span class="key">Steam Key</span></p>
+        <a class="btn" href="https://www.eneba.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-eneba x-the-quarry" style="--h:34;--p:341">
+      <div class="sart"><!-- <img src="Images/the-quarry.jpg" alt="The Quarry ,cover art"> --><span class="pct">-50%</span></div>
+      <div class="body">
+        <h3>The Quarry</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹341.32</b></p>
+        <p class="sinfo">Eneba · <span class="key">Steam Key</span></p>
+        <a class="btn" href="https://www.eneba.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-steam x-the-quarry-deluxe-edition" style="--h:259;--p:379">
+      <div class="sart"><!-- <img src="Images/the-quarry-deluxe-edition.jpg" alt="The Quarry Deluxe Edition ,cover art"> --><span class="pct">-50%</span></div>
+      <div class="body">
+        <h3>The Quarry Deluxe Edition</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹379</b></p>
+        <p class="sinfo">Steam · <em>Ends 3 Dec</em> · Lowest price ever</p></p>
+        <a class="btn" href="https://store.steampowered.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+    <article class="sale st-eneba x-yakuza-6" style="--h:40;--p:174">
+      <div class="sart"><!-- <img src="Images/yakuza-6.jpg" alt="Yakuza 6 ,cover art"> --><span class="pct">-50%</span></div>
+      <div class="body">
+        <h3>Yakuza 6</h3>
+        <p class="sprice"><s>₹3,299</s><b>₹173.71</b></p>
+        <p class="sinfo">Eneba · <span class="key">Steam Key</span></p>
+        <a class="btn" href="https://www.eneba.com/" target="_blank" rel="noopener">View deal</a>
+      </div>
+    </article>
+
+  </div>
+</div></section>
+</main>
+<footer><div class="wrap">© 2026 GameDrop. Made with love for gamers. · <a href="index.html" style="color:var(--cyan)">Home</a></div></footer>
+</body>
+</html>
